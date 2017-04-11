@@ -9,7 +9,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let baseURL = "https://api.twitter.com"
+let baseUrl = "https://api.twitter.com"
 let consumerKey = "z7ctDbsivGUStJg1fgjPJbepS"
 let consumerSecret = "CGAybubWNQDEGf33mwWn9AwtqMb1VxM6ZTvEeaJxMxe2psWBqQ"
 let requestTokenURL = "oauth/request_token"
@@ -20,7 +20,50 @@ class TwitterClient: BDBOAuth1SessionManager {
     static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com")! as URL!,
                                                         consumerKey: consumerKey,
                                                         consumerSecret: consumerSecret)
+    
+    var loginSuccess: (() -> ())?
+    var loginFailure: ((Error) -> ())?
 
+    func login(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        
+        loginSuccess = success
+        loginFailure = failure
+        
+        
+        TwitterClient.sharedInstance?.deauthorize()
+        TwitterClient.sharedInstance?.fetchRequestToken(withPath: requestTokenURL,
+                                  method: "GET",
+                                  callbackURL: URL(string: "twitterclone://oauth"),
+                                  scope: nil,
+                                  success: { (requestToken: BDBOAuth1Credential?) -> Void in
+                                    let url = URL(string: "\(baseUrl + authorize + requestToken!.token!)")!
+                                    UIApplication.shared.open(url)
+        }) { (error: Error?) -> Void in
+            print("error: \(error?.localizedDescription)")
+            self.loginFailure?(error!)
+        }
+    }
+    
+    func handleOpenUrl(url: URL) {
+        
+        let requestToken = BDBOAuth1Credential(queryString: url.query)
+        
+        fetchAccessToken(withPath: "oauth/access_token",
+                                 method: "POST",
+                                 requestToken: requestToken,
+                                 success: { (accessToken: BDBOAuth1Credential?) -> Void in
+                                    print("I got the access token!")
+                                    
+                                    self.loginSuccess?()
+                                    
+                                    
+                                }) { (error: Error?) -> Void in
+                                        print("error: \(error?.localizedDescription)")
+                                    self.loginFailure?(error!)
+        }
+        
+    }
+    
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         
         
