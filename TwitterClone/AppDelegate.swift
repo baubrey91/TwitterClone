@@ -46,45 +46,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(url.description)
         
         let requestToken = BDBOAuth1Credential(queryString: url.query)
-        let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string: baseURL)! as URL!,
-                                                    consumerKey: consumerKey,
-                                                    consumerSecret: consumerSecret)
+        let client = TwitterClient.sharedInstance
         
-        twitterClient?.fetchAccessToken(withPath: "oauth/access_token",
-                                        method: "POST",
-                                        requestToken: requestToken,
-                                        success: { (accessToken: BDBOAuth1Credential?) -> Void in
-                                            print("I got the access token!")
-                                            twitterClient?.get("1.1/account/verify_credentials.json",
-                                                               parameters: nil,
-                                                               progress: nil,
-                                                               success: { (task: URLSessionDataTask, response: Any?) -> Void in
-                                                                print("account: \(response)")
-                                                                let user = response as! NSDictionary
-                                                                print("name: \(user["name"])")
-                                            
-                                            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
-                                                
-                                                
-                                            })
-                                            
-                                            twitterClient?.get("1.1/statuses/home_timeline.json",
-                                                               parameters: nil,
-                                                               progress: nil,
-                                                               success: { (task: URLSessionDataTask, response: Any?) -> Void in
-                                                                let tweets = response as! [NSDictionary]
-                                                                
-                                                                for tweet in tweets {
-                                                                    print("\(tweet["text"]!)")
-                                                                }
-                                                                
-                                            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
-                                                
-                                                
-                                            })
-        
-        })
-                                         { (error: Error?) -> Void in
+        client?.fetchAccessToken(withPath: "oauth/access_token",
+                         method: "POST",
+                         requestToken: requestToken,
+                         success: { (accessToken: BDBOAuth1Credential?) -> Void in
+                            print("I got the access token!")
+                            
+                            client?.homeTimeline(success: { (tweets: [Tweet]) -> () in
+                                for tweet in tweets {
+                                    print(tweet.text)
+                                }
+                            }, failure: { (error: Error) -> () in
+                                print(error.localizedDescription)
+                            })
+                            
+                            client?.currentAccount()
+
+                            
+
+
+            }) { (error: Error?) -> Void in
                                             print("error: \(error?.localizedDescription)")
         }
         

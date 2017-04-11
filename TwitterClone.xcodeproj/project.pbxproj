@@ -17,6 +17,9 @@
 		CAA233271E9C246100AE6622 /* TwitterCloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA233261E9C246100AE6622 /* TwitterCloneTests.swift */; };
 		CAA233321E9C246100AE6622 /* TwitterCloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA233311E9C246100AE6622 /* TwitterCloneUITests.swift */; };
 		CAA233401E9C297900AE6622 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA2333F1E9C297900AE6622 /* LoginViewController.swift */; };
+		CAA233461E9C46E200AE6622 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA233451E9C46E200AE6622 /* User.swift */; };
+		CAA233481E9C46EE00AE6622 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA233471E9C46EE00AE6622 /* Tweet.swift */; };
+		CAA2334A1E9C528900AE6622 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA233491E9C528900AE6622 /* TwitterClient.swift */; };
 		F17D7D58F852833FAFCF088D /* Pods_TwitterCloneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB3BBA8D3F03B654E3BA825 /* Pods_TwitterCloneUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +61,9 @@
 		CAA233311E9C246100AE6622 /* TwitterCloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneUITests.swift; sourceTree = "<group>"; };
 		CAA233331E9C246100AE6622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAA2333F1E9C297900AE6622 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CAA233451E9C46E200AE6622 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CAA233471E9C46EE00AE6622 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		CAA233491E9C528900AE6622 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		D58B0DF65D83AAF4ABD285DE /* Pods-TwitterCloneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterCloneUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterCloneUITests/Pods-TwitterCloneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F88B0104FA34425597B98685 /* Pods_TwitterCloneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterCloneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBC567729BF81D7C828073D5 /* Pods_TwitterClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +145,7 @@
 		CAA233101E9C246100AE6622 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				CAA233441E9C46AB00AE6622 /* API */,
 				CAA233411E9C29DD00AE6622 /* Model */,
 				CAA233421E9C29E200AE6622 /* View */,
 				CAA233431E9C29EE00AE6622 /* Controller */,
@@ -173,6 +180,8 @@
 		CAA233411E9C29DD00AE6622 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CAA233451E9C46E200AE6622 /* User.swift */,
+				CAA233471E9C46EE00AE6622 /* Tweet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -190,6 +199,14 @@
 				CAA2333F1E9C297900AE6622 /* LoginViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		CAA233441E9C46AB00AE6622 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CAA233491E9C528900AE6622 /* TwitterClient.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -476,6 +493,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA233461E9C46E200AE6622 /* User.swift in Sources */,
+				CAA2334A1E9C528900AE6622 /* TwitterClient.swift in Sources */,
+				CAA233481E9C46EE00AE6622 /* Tweet.swift in Sources */,
 				CAA233401E9C297900AE6622 /* LoginViewController.swift in Sources */,
 				CAA233141E9C246100AE6622 /* ViewController.swift in Sources */,
 				CAA233121E9C246100AE6622 /* AppDelegate.swift in Sources */,

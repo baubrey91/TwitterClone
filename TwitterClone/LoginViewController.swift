@@ -9,12 +9,6 @@
 import UIKit
 import BDBOAuth1Manager
 
-let baseURL = "https://api.twitter.com"
-let consumerKey = "z7ctDbsivGUStJg1fgjPJbepS"
-let consumerSecret = "CGAybubWNQDEGf33mwWn9AwtqMb1VxM6ZTvEeaJxMxe2psWBqQ"
-let requestTokenURL = "oauth/request_token"
-let authorize = "/oauth/authorize?oauth_token="
-
 
 class LoginViewController: UIViewController {
 
@@ -31,12 +25,9 @@ class LoginViewController: UIViewController {
 
 
     @IBAction func onLoginButton(_ sender: Any) {
-        let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string: baseURL)! as URL!,
-                                                    consumerKey: consumerKey,
-                                                    consumerSecret: consumerSecret)
         
-        twitterClient?.deauthorize()
-        twitterClient?.fetchRequestToken(withPath: requestTokenURL,
+        TwitterClient.sharedInstance?.deauthorize()
+        TwitterClient.sharedInstance?.fetchRequestToken(withPath: requestTokenURL,
                                          method: "GET",
                                          callbackURL: URL(string: "twitterclone://oauth"),
                                          scope: nil,
