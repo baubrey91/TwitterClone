@@ -183,7 +183,6 @@
 			children = (
 				CAA233451E9C46E200AE6622 /* User.swift */,
 				CAA233471E9C46EE00AE6622 /* Tweet.swift */,
-				39EEAE531E9DE0F0001EE9AA /* TweetCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -191,6 +190,7 @@
 		CAA233421E9C29E200AE6622 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				39EEAE531E9DE0F0001EE9AA /* TweetCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
