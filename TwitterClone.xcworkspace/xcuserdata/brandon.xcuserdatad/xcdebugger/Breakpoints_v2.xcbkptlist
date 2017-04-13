@@ -38,11 +38,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwitterClone/TwitterClient.swift"
-            timestampString = "513628544.897606"
+            timestampString = "513732326.692718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "currentAccount(sucess:failure:)"
             landmarkType = "7">
          </BreakpointContent>

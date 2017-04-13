@@ -93,11 +93,9 @@ class TwitterClient: BDBOAuth1SessionManager {
                 
                 success(tweets)
         
-        
         }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
             
             failure(error)
-
         })
     
     }
