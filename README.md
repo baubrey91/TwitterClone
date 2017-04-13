@@ -27,7 +27,10 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
+- [x] Added App Icon.
+- [x] Custom pull to reload with animation with reusable code.
 - [ ] List anything else that you can get done to improve the app functionality!
+
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
