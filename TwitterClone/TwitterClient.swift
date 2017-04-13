@@ -17,7 +17,6 @@ let authorize = "/oauth/authorize?oauth_token="
 
 class TwitterClient: BDBOAuth1SessionManager {
     
-    
     static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com")! as URL!,
                                                         consumerKey: consumerKey,
                                                         consumerSecret: consumerSecret)
@@ -79,7 +78,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        
         
         get("1.1/statuses/home_timeline.json",
             parameters: nil,
