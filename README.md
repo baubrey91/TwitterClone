@@ -2,7 +2,7 @@
 
 Twitter lite is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: 5 hours spent in total
+Time spent: 10 hours spent in total
 
 ## User Stories
 
@@ -28,7 +28,9 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [x] Added App Icon.
-- [x] Custom pull to reload with animation with reusable code.
+- [x] Custom pull to reload with animation with reusable code in seperate file.
+- [x] If timestamp is within 24 hours prints out hours otherwise print in MM/DD/YY format.
+- [ ] Converts for timezone difference.
 - [ ] List anything else that you can get done to improve the app functionality!
 
 
