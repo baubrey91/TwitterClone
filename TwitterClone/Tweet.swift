@@ -33,7 +33,6 @@ class Tweet: NSObject {
             
             timestamp = formatter.date(from: timestampString)
         }
-        
     }
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()

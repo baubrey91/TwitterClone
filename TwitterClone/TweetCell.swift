@@ -23,7 +23,18 @@ class TweetCell: UITableViewCell {
             if let url = tweet?.profileImageUrl {
                 profileImage.setImageWith(URL(string: url)!)
             }
-            //timeStamp.text = tweet?.timestamp
+            if let stamp = tweet?.timestamp {
+                let formatter = DateFormatter()
+                let hoursSinceTweet = abs(stamp.timeIntervalSinceNow/360)
+                if hoursSinceTweet < 24 {
+                    timeStamp.text = "\(Int(floor(hoursSinceTweet)))h"
+                    
+                }else {
+
+                formatter.dateFormat = "MM/d/yy"
+                timeStamp.text = formatter.string(from: stamp)
+                }
+            }
         }
     }
     

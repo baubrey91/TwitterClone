@@ -8,6 +8,8 @@ target 'TwitterClone' do
   # Pods for TwitterClone
     pod 'AFNetworking'
     pod 'BDBOAuth1Manager'
+    pod 'AFNetworking'
+
 
   target 'TwitterCloneTests' do
     inherit! :search_paths
