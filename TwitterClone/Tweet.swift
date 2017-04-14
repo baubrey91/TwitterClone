@@ -16,6 +16,7 @@ class Tweet: NSObject {
     var favoriteCount: Int = 0
     var name: String?
     var profileImageUrl: String?
+    var screenName: String?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -23,6 +24,7 @@ class Tweet: NSObject {
         favoriteCount = (dictionary["text"] as? Int) ?? 0
         let user = dictionary["user"] as! NSDictionary
         name = user["name"] as? String
+        screenName = user["screen_name"] as? String
         profileImageUrl = user["profile_image_url"] as? String
         
         let timestampString = dictionary["created_at"] as? String
