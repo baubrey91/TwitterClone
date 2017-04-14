@@ -21,6 +21,9 @@ class TwitterClient: BDBOAuth1SessionManager {
                                                         consumerKey: consumerKey,
                                                         consumerSecret: consumerSecret)
     
+    var maxId: Int?
+    var minId: Int?
+    
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
 
@@ -79,6 +82,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         
+        var parameters = ["count": 20]
+
+        
         get("1.1/statuses/home_timeline.json",
             parameters: nil,
             progress: nil,
@@ -88,6 +94,18 @@ class TwitterClient: BDBOAuth1SessionManager {
                 print(dictionaries)
                 
                 let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+                
+                let tweetIDs = tweets.reduce([]) { (result, tweet) -> [Int] in
+                    if let idString = tweet.id, let id = Int(idString) {
+                        return result + [id]
+                    } else {
+                        return result
+                    }
+                }
+                
+                
+                self.maxId = tweetIDs.sorted().last
+                self.minId = tweetIDs.sorted().first
                 
                 success(tweets)
         

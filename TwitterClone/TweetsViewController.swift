@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class TweetsViewController: UIViewController {
     
@@ -33,6 +34,9 @@ class TweetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
+        
         //set up infinte scroll
         let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
@@ -50,12 +54,16 @@ class TweetsViewController: UIViewController {
         tableView.addSubview(refreshControl)
 
         //load top 20 tweets to home
+        SVProgressHUD.show()
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
             
             self.tweets = tweets
             self.tableView.reloadData()
+            SVProgressHUD.dismiss()
+
             
         }, failure: { (error: Error) -> () in
+            SVProgressHUD.dismiss()
             print(error.localizedDescription)
         })
     }
@@ -98,7 +106,7 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        //PullToRefresh.scrolling(scrollView: scrollView, vc: self)
+        PullToRefresh.scrolling(scrollView: scrollView, vc: self)
         
         if (!isMoreDataLoading) {
             // Calculate the position of one screen length before the bottom of the results
@@ -120,8 +128,16 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
     
     func loadMoreData() {
         offSet += 10
-        //filters["offset"] = offSet as AnyObject
-        print("working")
+        
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
+            
+            self.isMoreDataLoading = false
+            self.tweets = tweets
+            self.tableView.reloadData()
+            
+        }, failure: { (error: Error) -> () in
+            print(error.localizedDescription)
+        })
     }
 
 }

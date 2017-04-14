@@ -17,6 +17,8 @@ class Tweet: NSObject {
     var name: String?
     var profileImageUrl: String?
     var screenName: String?
+    let id: String?
+
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -35,6 +37,14 @@ class Tweet: NSObject {
             
             timestamp = formatter.date(from: timestampString)
         }
+        
+        id = {
+            if let retweetStatus = dictionary["retweeted_status"] as? [String: AnyObject], !retweetStatus.isEmpty {
+                return retweetStatus["id_str"] as? String
+            } else {
+                return dictionary["id_str"] as? String
+            }
+        }()
     }
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()

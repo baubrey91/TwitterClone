@@ -51,6 +51,7 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -66,13 +67,17 @@ class TweetCell: UITableViewCell {
     @IBAction func retweetButton(_ sender: Any) {
         
         let img = (retweet) ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+        retweetButton.contentMode = .scaleAspectFit
+        retweetButton.clipsToBounds = true
         retweetButton.setImage(img, for: UIControlState.normal)
         retweet = !retweet
     }
     
     @IBAction func favoriteButton(_ sender: Any) {
         
-        let img = (favorite) ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png")
+        let img = (favorite) ? UIImage(named: "favorite.png") : UIImage(named: "favoriteGold.png")
+        favoriteButton.contentMode = .scaleAspectFit
+        favoriteButton.clipsToBounds = true
         favoriteButton.setImage(img, for: UIControlState.normal)
         favorite = !favorite
     }

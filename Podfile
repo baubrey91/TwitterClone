@@ -9,6 +9,7 @@ target 'TwitterClone' do
     pod 'AFNetworking'
     pod 'BDBOAuth1Manager'
     pod 'AFNetworking'
+    pod 'SVProgressHUD'
 
 
   target 'TwitterCloneTests' do
