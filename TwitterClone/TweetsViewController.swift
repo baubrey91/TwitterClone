@@ -84,6 +84,16 @@ class TweetsViewController: UIViewController {
         
             TwitterClient.sharedInstance?.logout()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReplySegue" {
+            let vc = segue.destination as! TweetDetailViewController
+            let indexPath = tableView.indexPath(for: sender as! TweetCell)!
+            //vc.movie = filteredMoviesArray[indexPath.row]
+            let cell = tableView.cellForRow(at: indexPath) as! TweetCell
+            //filteredMoviesArray[indexPath.row].isTorn = true
+        }
+    }
 }
 
 extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
@@ -99,10 +109,6 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
-    
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         

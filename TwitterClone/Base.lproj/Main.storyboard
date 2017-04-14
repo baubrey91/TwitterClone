@@ -222,6 +222,9 @@
                                             <outlet property="screenNameLabel" destination="B1H-Mw-thv" id="v0H-gs-iuB"/>
                                             <outlet property="timeStamp" destination="7ya-xi-wxH" id="FDR-Ex-IjM"/>
                                             <outlet property="tweetTextLabel" destination="8gT-eM-hUv" id="iCy-NV-4xg"/>
+                                            <segue destination="RlW-9F-b4V" kind="popoverPresentation" identifier="ReplySegue" popoverAnchorView="VxH-S5-kLp" id="jnD-RJ-MkP">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -248,6 +251,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m1y-zl-78P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2218.4000000000001" y="118.29085457271366"/>
+        </scene>
+        <!--Tweet Detail View Controller-->
+        <scene sceneID="6KG-mi-M1H">
+            <objects>
+                <viewController id="RlW-9F-b4V" customClass="TweetDetailViewController" customModule="TwitterClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lSz-i2-LEB"/>
+                        <viewControllerLayoutGuide type="bottom" id="pIV-Ux-8FS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o7A-A5-5nS">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="400"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DEc-ng-9hy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3074" y="13"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hxB-32-ZNw">
