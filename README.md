@@ -31,6 +31,13 @@ The following **additional** features are implemented:
 - [x] Custom pull to reload with animation with reusable code in seperate file.
 - [x] If timestamp is within 24 hours prints out hours otherwise print in MM/DD/YY format.
 - [ ] Converts for timezone difference.
+- [ ] Popover for creating new tweet.
+- [ ] Async image loading.
+- [ ] Phone says TWEET when re-tweeting.
+- [ ] spinning bird loader.
+- [ ] If it iss a Donald Trump tweet make it gold with "YUGE" text.
+- [ ] no internet connection banner.
+
 - [ ] List anything else that you can get done to improve the app functionality!
 
 
