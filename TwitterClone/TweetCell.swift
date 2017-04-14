@@ -12,6 +12,8 @@ class TweetCell: UITableViewCell {
 
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var retweetNameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var timeStamp: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
@@ -24,6 +26,8 @@ class TweetCell: UITableViewCell {
         didSet {
             nameLabel.text = tweet?.name
             tweetTextLabel.text = tweet?.text
+            screenNameLabel.text = "@" + tweet.screenName!
+            retweetNameLabel.text = tweet.screenName
             
             if let url = tweet?.profileImageUrl {
                 profileImage.setImageWith(URL(string: url)!)
