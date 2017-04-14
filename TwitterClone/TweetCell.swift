@@ -14,6 +14,11 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var timeStamp: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    var favorite: Bool = false
+    var retweet: Bool = false
     
     var tweet: Tweet! {
         didSet {
@@ -48,5 +53,23 @@ class TweetCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func replyButton(_ sender: Any) {
+        
+        
+    }
+    
+    @IBAction func retweetButton(_ sender: Any) {
+        
+        let img = (retweet) ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+        retweetButton.setImage(img, for: UIControlState.normal)
+        retweet = !retweet
+    }
+    
+    @IBAction func favoriteButton(_ sender: Any) {
+        
+        let img = (favorite) ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png")
+        favoriteButton.setImage(img, for: UIControlState.normal)
+        favorite = !favorite
+    }
 }

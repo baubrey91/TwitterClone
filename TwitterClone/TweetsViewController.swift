@@ -30,9 +30,7 @@ class TweetsViewController: UIViewController {
         refreshControl = UIRefreshControl()
 
         PullToRefresh.setupRefreshControl(vc: self)
-        
         refreshControl?.addTarget(self, action: #selector(TweetsViewController.refresh), for: UIControlEvents.valueChanged)
-        
         tableView.addSubview(refreshControl)
 
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
