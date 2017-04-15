@@ -423,14 +423,14 @@
                                                     <segue destination="9pk-cc-3vt" kind="presentation" id="vd2-wN-rzA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXO-Vk-M0N">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXO-Vk-M0N">
                                                 <rect key="frame" x="84" y="0.0" width="84" height="30"/>
                                                 <state key="normal" title="Button" image="retweet"/>
                                                 <connections>
                                                     <action selector="retweetButton:" destination="AN0-wm-Q7v" eventType="touchUpInside" id="gdc-Vc-VYu"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t82-Yx-39j">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t82-Yx-39j">
                                                 <rect key="frame" x="168" y="0.0" width="84" height="30"/>
                                                 <state key="normal" title="Button" image="favor"/>
                                                 <connections>
@@ -494,15 +494,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="jgf-WG-ysg">
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="Fyj-V9-sUR">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="9pk-cc-3vt" kind="presentation" id="7kn-nO-E9e"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="favoriteButton" destination="t82-Yx-39j" id="Q15-hd-6AC"/>
                         <outlet property="favoritesLabel" destination="6fj-CJ-OuD" id="Ump-mr-GFk"/>
                         <outlet property="profileImage" destination="wP8-ov-jsZ" id="cq9-cf-ama"/>
+                        <outlet property="retweetButton" destination="RXO-Vk-M0N" id="3sj-CO-lSf"/>
                         <outlet property="retweetLabel" destination="wEG-vG-4ln" id="EQ4-Lr-iot"/>
                         <outlet property="retweetsLabel" destination="E7n-Qu-8RT" id="9o7-Dz-lpS"/>
                         <outlet property="screennameLabel" destination="RBQ-Lc-4u5" id="xXr-Md-wzs"/>
@@ -546,10 +548,11 @@
             <objects>
                 <navigationController storyboardIdentifier="TweetNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Ifj-Xb-6aJ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QLt-fB-HpS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="QLt-fB-HpS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.25098039220000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.25098039220000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

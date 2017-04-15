@@ -62,17 +62,26 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
             
         }, failure: { (error: Error) -> () in
             SVProgressHUD.dismiss()
-            print(error.localizedDescription)
+            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
         })
     }
     
     func refresh(){
         
-        // This is where you'll make requests to an API, reload data, or process information
+//        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
+//            
+//            self.tweets = tweets
+//            self.tableView.reloadData()
+//            self.refreshControl!.endRefreshing()
+//            
+//        }, failure: { (error: Error) -> () in
+//            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+//        })
+        
+        // I set up a timer instead of getting data to showcase the animation, above code will refresh data
         let delayInSeconds = 3.0;
         let popTime = DispatchTime.now() + Double(Int64(delayInSeconds * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC);
         DispatchQueue.main.asyncAfter(deadline: popTime) { () -> Void in
-            // When done requesting/reloading/processing invoke endRefreshing, to close the control
             self.refreshControl!.endRefreshing()
         }
     }
@@ -143,8 +152,10 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        //pull down to refresh
         PullToRefresh.scrolling(scrollView: scrollView, vc: self)
         
+        //infinite scroll
         if (!isMoreDataLoading) {
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = tableView.contentSize.height
@@ -173,7 +184,7 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
             self.tableView.reloadData()
             
         }, failure: { (error: Error) -> () in
-            print(error.localizedDescription)
+            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
         })
     }
 }

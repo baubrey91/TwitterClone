@@ -54,16 +54,10 @@ class ComposeTweetViewController: UIViewController {
                                                         //self.callback?(tweet)
                                                     }},
                                                 failure: { (error) in
-                                                    //self.messageTextView.text = currentText
-                                                    
-                                                    let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                                    ac.addAction(okAction)
-                                                    self.present(ac, animated: true, completion: nil)
-        }
-        )
-    }
+                                                    Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
 
+        })
+    }
 }
 
 extension ComposeTweetViewController: UITextViewDelegate {
