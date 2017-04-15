@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     var tweets = [Tweet]()
     
@@ -26,8 +26,6 @@ class TweetsViewController: UIViewController {
     var isMoreDataLoading = false
     var loadingMoreView: InfiniteScrollActivityView?
     var offSet = 0
-
-
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -86,29 +84,59 @@ class TweetsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "ReplySegue" {
+            
             let vc = segue.destination as! TweetDetailViewController
             let indexPath = tableView.indexPath(for: sender as! TweetCell)!
-            //vc.movie = filteredMoviesArray[indexPath.row]
             let cell = tableView.cellForRow(at: indexPath) as! TweetCell
-            //filteredMoviesArray[indexPath.row].isTorn = true
+        }
+        
+        if segue.identifier == "ComposeSegue"{
+            
+            let navigationController = segue.destination as! UINavigationController
+            let composeTweetViewController = navigationController.topViewController as! ComposeTweetViewController
+            //composeTweetViewController.delegate = self
         }
     }
 }
 
-extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
+extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIPopoverControllerDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets[indexPath.row]
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return tweets.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let popoverViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
+        let detailViewController:TweetDetailViewController = storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController") as! TweetDetailViewController
+        popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        popoverViewController.popoverPresentationController!.delegate = self
+        detailViewController.delegate = self
+        //popoverViewController.setText(self.notes)
+        popoverViewController.isModalInPopover = true;
+        present(popoverViewController, animated: true, completion: nil)
+        let popoverController = popoverViewController.popoverPresentationController
+        popoverController?.passthroughViews = nil
+        popoverController!.sourceView = self.view
+        popoverController!.sourceRect = CGRect(x: 64,y: 160 , width: 300, height: 400)
+        popoverController!.permittedArrowDirections = UIPopoverArrowDirection()*/
+    }
+    
+   /* func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }*/
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -145,6 +173,5 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource {
             print(error.localizedDescription)
         })
     }
-
 }
 

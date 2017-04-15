@@ -84,9 +84,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         var parameters = ["count": 20]
 
-        
         get("1.1/statuses/home_timeline.json",
-            parameters: nil,
+            parameters: parameters,
             progress: nil,
             success: { (task: URLSessionDataTask?, response: Any?) -> Void in
                 let dictionaries = response as! [NSDictionary]
@@ -131,6 +130,51 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
             
             failure(error)
+        })
+    }
+    
+//    func postTweet(tweetBody: String, replyToStatusID: String?, completion: @escaping (Tweet?, Error?) -> ()) {
+//        
+//        var params = ["status" : tweetBody]
+//        
+//        if let replyId = replyToStatusID {
+//            params["in_reply_to_status_id"] = replyId
+//        }
+//        
+//        sessionManager.request(updateStatusURL, method: .post, parameters: params, encoding: URLEncoding.queryString)
+//            .responseObject { (response: DataResponse<Tweet>) in
+//                switch response.result {
+//                case .success(let value):
+//                    let tweet = value
+//                    completion(tweet, nil)
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                    completion(nil, error)
+//                }
+//                
+//        }
+//        
+//    }
+    
+    
+    func postTweet(tweet: String, replyToStatusID: String?, success: @escaping (Tweet) -> (Void), failure: @escaping (Error) -> Void) {
+        
+        var parameters = ["status" : tweet]
+        
+//        if let replyId = replyToStatusID {
+//            parameters["in_reply_to_status_id"] = replyId
+//        }
+        
+        post("1.1/statuses/update.json",
+             parameters: parameters,
+             progress: nil,
+             success: { (task: URLSessionDataTask?, response: Any?) -> Void in
+                if let dictionary = response as? NSDictionary {
+                    let tweet = Tweet(dictionary: dictionary)
+                    success(tweet)
+                } },
+             failure: { (_, error: Error) in
+                failure(error)
         })
     }
 }
