@@ -175,6 +175,86 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    func reweet(id: String,
+                retweet: Bool,
+                success: @escaping (Bool) -> (Void),
+                failure: @escaping (Error) -> Void) {
+        
+        let url = (retweet) ?  "1.1/statuses/unretweet/\(id).json" : "1.1/statuses/retweet/\(id).json"
+        let params = ["id" : id]
+        post(url,
+             parameters:params,
+             progress:nil,
+             success: { (task: URLSessionDataTask?, response: Any?) -> Void in
+                if let dictionary = response as? NSDictionary {
+                    //let tweet = Tweet(dictionary: dictionary)
+                    success(true)
+                } },
+             failure: { (_, error: Error) in
+                failure(error)
+        })
+    }
+    
+            
+//            //un retweet
+//            print(tweetID)
+//            sessionManager.request(statusURL + tweetID + ".json?include_my_retweet=1", method: .get)
+//                .responseObject { (response: DataResponse<Tweet>) in
+//                    switch response.result {
+//                    case .success(let value):
+//                        let tweet = value
+//                        
+//                        let retweetID = tweet.currentUserRetweet!.id_str
+//                        
+//                        self.sessionManager.request(self.unRetweetURL + retweetID! + ".json", method: .post)
+//                            .responseObject { (response: DataResponse<Tweet>) in
+//                                switch response.result {
+//                                case .success(let value):
+//                                    let tweet = value
+//                                    completion(tweet, nil)
+//                                case .failure(let error):
+//                                    print(error.localizedDescription)
+//                                    completion(nil, error)
+//                                }
+//                        }
+//                    case .failure(let error):
+//                        print(error.localizedDescription)
+//                        completion(nil, error)
+//                    }
+//            }
+//        }else{
+//            sessionManager.request(retweetURL + tweetID + ".json", method: .post)
+//                .responseObject { (response: DataResponse<Tweet>) in
+//                    switch response.result {
+//                    case .success(let value):
+//                        let tweet = value
+//                        completion(tweet, nil)
+//                    case .failure(let error):
+//                        print(error.localizedDescription)
+//                        completion(nil, error)
+//                    }
+//    
+//        }
+//    }
+
+    
+//    if retweeted {
+//    let URL = String("1.1/statuses/unretweet/\(id).json")
+//    POST(URL, parameters: ["id": id], progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+//    success(false)
+//    }) { (task: NSURLSessionDataTask?, error: NSError) in
+//    failure(error)
+//    }
+//    } else {
+//    let URL = String("1.1/statuses/retweet/\(id).json")
+//    POST(URL, parameters: ["id": id], progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+//    success(true)
+//    }) { (task: NSURLSessionDataTask?, error: NSError) in
+//    failure(error)
+//    }
+//    }
+
+    
     
     func postTweet(tweet: String,
                    replyToStatusID: String?,
