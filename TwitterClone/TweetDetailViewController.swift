@@ -16,10 +16,22 @@ class TweetDetailViewController: UIViewController {
             
         }
     }
+    var favoriteBool = true
     
     override func viewDidLoad() {
         
     }
 
-
+    @IBAction func favoriteButton(_ sender: Any) {
+        
+        TwitterClient.sharedInstance?.favorite(create: favoriteBool,
+                                               tweet: tweet!,
+                                               success: {(_) in
+                                                //configure favorite button
+                                                self.favoriteBool = !self.favoriteBool
+        },
+                                               failure: {(error) in
+                                                print(error.localizedDescription)
+        }
+    )}
 }

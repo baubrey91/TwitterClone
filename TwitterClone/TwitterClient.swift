@@ -157,7 +157,29 @@ class TwitterClient: BDBOAuth1SessionManager {
 //    }
     
     
-    func postTweet(tweet: String, replyToStatusID: String?, success: @escaping (Tweet) -> (Void), failure: @escaping (Error) -> Void) {
+    func favorite(create: Bool,
+                  tweet: Tweet,
+                  success: @escaping (Void) -> Void,
+                  failure: @escaping (Error) -> Void) {
+        
+        let url = (create) ? "1.1/favorites/create.json" : "1.1/favorites/destroy.json"
+
+        if let id = tweet.id {
+            post(url,
+                parameters: ["id": id],
+                progress: nil,
+                success: { _ in success() },
+                failure: { (_, error: Error) in
+                    failure(error)
+            })
+        }
+    }
+    
+    
+    func postTweet(tweet: String,
+                   replyToStatusID: String?,
+                   success: @escaping (Tweet) -> (Void),
+                   failure: @escaping (Error) -> Void) {
         
         var parameters = ["status" : tweet]
         

@@ -85,11 +85,12 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "ReplySegue" {
+        if segue.identifier == "DetailSegue" {
             
             let vc = segue.destination as! TweetDetailViewController
             let indexPath = tableView.indexPath(for: sender as! TweetCell)!
             let cell = tableView.cellForRow(at: indexPath) as! TweetCell
+            vc.tweet = tweets[indexPath.row]
         }
         
         if segue.identifier == "ComposeSegue"{
@@ -117,6 +118,8 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+
         
         /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let popoverViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController

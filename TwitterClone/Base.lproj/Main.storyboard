@@ -210,7 +210,7 @@
                                             <outlet property="screenNameLabel" destination="B1H-Mw-thv" id="v0H-gs-iuB"/>
                                             <outlet property="timeStamp" destination="7ya-xi-wxH" id="FDR-Ex-IjM"/>
                                             <outlet property="tweetTextLabel" destination="8gT-eM-hUv" id="iCy-NV-4xg"/>
-                                            <segue destination="AN0-wm-Q7v" kind="push" id="7fn-jQ-vng"/>
+                                            <segue destination="AN0-wm-Q7v" kind="push" identifier="DetailSegue" id="7fn-jQ-vng"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -242,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m1y-zl-78P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2218.4000000000001" y="118.29085457271366"/>
+            <point key="canvasLocation" x="2242" y="-190"/>
         </scene>
         <!--Compose Tweet View Controller-->
         <scene sceneID="bhL-gI-9jY">
@@ -316,7 +316,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VA4-yP-EUW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4196" y="-190.25487256371815"/>
+            <point key="canvasLocation" x="4850" y="-190"/>
         </scene>
         <!--Tweet Detail View Controller-->
         <scene sceneID="ypS-tR-pW2">
@@ -425,6 +425,9 @@
                                 <rect key="frame" x="326" y="288" width="33" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="favorite"/>
+                                <connections>
+                                    <action selector="favoriteButton:" destination="AN0-wm-Q7v" eventType="touchUpInside" id="30o-qR-wsY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXO-Vk-M0N">
                                 <rect key="frame" x="173" y="288" width="30" height="30"/>
@@ -435,6 +438,9 @@
                                 <rect key="frame" x="10" y="288" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="reply"/>
+                                <connections>
+                                    <segue destination="9pk-cc-3vt" kind="presentation" id="vd2-wN-rzA"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retweeted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEG-vG-4ln">
                                 <rect key="frame" x="83" y="65" width="82" height="21"/>
@@ -446,11 +452,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jgf-WG-ysg"/>
+                    <navigationItem key="navigationItem" id="jgf-WG-ysg">
+                        <barButtonItem key="rightBarButtonItem" title="Reply" id="Fyj-V9-sUR">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="9pk-cc-3vt" kind="presentation" id="7kn-nO-E9e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cd2-RQ-QWc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3257" y="589"/>
+            <point key="canvasLocation" x="3202" y="463"/>
         </scene>
         <!--Tweet Detail View Controller-->
         <scene sceneID="6KG-mi-M1H">
@@ -535,7 +548,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMy-im-Com" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3256.8000000000002" y="-190.25487256371815"/>
+            <point key="canvasLocation" x="4038" y="-190"/>
         </scene>
     </scenes>
     <resources>
@@ -544,4 +557,7 @@
         <image name="retweet" width="30" height="30"/>
         <image name="twitterBirdCircle" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="gbQ-hu-yq0"/>
+    </inferredMetricsTieBreakers>
 </document>
