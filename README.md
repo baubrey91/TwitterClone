@@ -39,24 +39,27 @@ The following **additional** features are implemented:
 - [x] Async image loading with fade in. (I really enjoyed this from "flicks")
 - [x] Phone says TWEET TWEET when re-tweeting. (AVFoundation see line 71 of composeTweetViewController)
 
-- [ ] List anything else that you can get done to improve the app functionality!
-
-
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Utilizing enums.
+2. Optimizing use of swiftLint
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
+[![twitterFinal.gif](https://s27.postimg.org/l9essarb7/twitter_Final.gif)](https://postimg.org/image/hd1gwb6bj/)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+Trouble setting up swiftLint.
+Bit of a learning curb in business logic as I have never used twitter before.
+
+credit to icons8, afnetworking nsdateminimaltimeago, svprogresshud, bdboauth1manager
 
 ## License
 
