@@ -31,7 +31,8 @@ The following **additional** features are implemented:
 - [x] Custom pull to reload with animation with reusable code in seperate file.
 - [x] Time intervals of minutes hours or day depending on how recent it is. (NSDateTimeAgo library)
 - [x] Custom sized popover for creating new tweet.
-- [x] UIAlert if there is a callback error
+- [x] UIAlert if there is a callback error.
+- [ ] Cleaned code with swiftLint.
 - [ ] Async image loading.
 - [ ] Phone says TWEET when re-tweeting.
 - [ ] spinning bird loader.
