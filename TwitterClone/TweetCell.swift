@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 import NSDateMinimalTimeAgo
 
 class TweetCell: UITableViewCell {
@@ -39,7 +40,10 @@ class TweetCell: UITableViewCell {
             //retweetNameLabel.text = tweet.screenName
             
             if let url = tweet?.profileImageUrl {
-                profileImage.setImageWith(URL(string: url)!)
+                let imageUrl: NSURL = NSURL(string: url)!
+                profileImage.layer.cornerRadius = 9.0
+                profileImage.layer.masksToBounds = true
+                profileImage.fadeInImageRequest(imgURL: imageUrl)
             }
             if let stamp = tweet?.timestamp {
                 timeStamp.text = stamp.timeAgo()
@@ -51,7 +55,6 @@ class TweetCell: UITableViewCell {
             let favImg = ((tweet?.favorited)! ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png"))
             favoriteButton.setImage(favImg, for: UIControlState.normal)
 
-
         }
     }
     
@@ -60,12 +63,48 @@ class TweetCell: UITableViewCell {
         // Initialization code
     }
     
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-    
+}
 
+extension TweetCell: updateHomeDelegate {
+    
+    func updateRetweeted(bool: Bool) {
+        tweet?.retweeted = bool
+        let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+        retweetButton.setImage(retweetImg, for: UIControlState.normal)
+    }
+    
+    func updateFavorite(bool: Bool) {
+        tweet?.favorited = bool
+        let favImg = ((tweet?.favorited)! ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png"))
+        favoriteButton.setImage(favImg, for: UIControlState.normal)
+    }
+}
+
+extension UIImageView {
+    
+    func fadeInImageRequest(imgURL: NSURL) {
+        
+        let imageRequest = URLRequest(url: imgURL as URL)
+        
+        self.setImageWith(imageRequest as URLRequest, placeholderImage: nil, success: {( imageRequest, imageResponse, image) -> Void in
+            
+            if imageResponse != nil {
+                self.alpha = 0.0
+                
+                self.image = image
+                UIView.animate(withDuration: 2.0, animations: { () -> Void in
+                    self.alpha = 3.0
+                })
+            } else {
+                self.image = image
+            }
+        }, failure: {(imageRequest, imageResponse, error) -> Void in
+            
+        })
+    }
 }

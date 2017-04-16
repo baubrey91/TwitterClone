@@ -15,10 +15,10 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     var refreshControl: UIRefreshControl!
 
-    var refreshLoadingView : UIView!
-    var refreshColorView : UIView!
-    var compass_background : UIImageView!
-    var compass_spinner : UIImageView!
+    var refreshLoadingView: UIView!
+    var refreshColorView: UIView!
+    var compass_background: UIImageView!
+    var compass_spinner: UIImageView!
     
     var isRefreshIconsOverlap = false
     var isRefreshAnimating = false
@@ -36,7 +36,9 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
         tableView.estimatedRowHeight = 140
         
         //set up infinte scroll
-        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        let frame = CGRect(x: 0, y: tableView.contentSize.height,
+                           width: tableView.bounds.size.width,
+                           height: InfiniteScrollActivityView.defaultHeight)
         loadingMoreView = InfiniteScrollActivityView(frame: frame)
         loadingMoreView!.isHidden = true
         tableView.addSubview(loadingMoreView!)
@@ -48,25 +50,25 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
         //set up pull to refresh
         refreshControl = UIRefreshControl()
         PullToRefresh.setupRefreshControl(vc: self)
-        refreshControl?.addTarget(self, action: #selector(TweetsViewController.refresh), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self, action: #selector(TweetsViewController.refresh),
+                                  for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl)
 
         //load top 20 tweets to home
         SVProgressHUD.show()
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
             
             self.tweets = tweets
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
 
-            
-        }, failure: { (error: Error) -> () in
+        }, failure: { (error: Error) -> Void in
             SVProgressHUD.dismiss()
-            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+            Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
         })
     }
     
-    func refresh(){
+    func refresh() {
         
 //        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
 //            
@@ -75,18 +77,17 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
 //            self.refreshControl!.endRefreshing()
 //            
 //        }, failure: { (error: Error) -> () in
-//            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+//            Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
 //        })
         
         // I set up a timer instead of getting data to showcase the animation, above code will refresh data
-        let delayInSeconds = 3.0;
-        let popTime = DispatchTime.now() + Double(Int64(delayInSeconds * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC);
+        let delayInSeconds = 3.0
+        let popTime = DispatchTime.now() + Double(Int64(delayInSeconds * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: popTime) { () -> Void in
             self.refreshControl!.endRefreshing()
         }
     }
     
-
     @IBAction func onLogoutButton(_ sender: Any) {
         
             TwitterClient.sharedInstance?.logout()
@@ -123,7 +124,8 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
+        let navigationController: UINavigationController =
+            storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
         let detailsViewController = navigationController.topViewController as! TweetDetailViewController
         detailsViewController.tweet = tweets[indexPath.row]
         navigationController.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -133,12 +135,13 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
         let popoverController = navigationController.popoverPresentationController
         popoverController?.passthroughViews = nil
         popoverController!.sourceView = self.view
-        popoverController!.sourceRect = CGRect(x: 64,y: 160 , width: 300, height: 400)
+        popoverController!.sourceRect = CGRect(x: 64, y: 160, width: 300, height: 400)
         popoverController!.permittedArrowDirections = UIPopoverArrowDirection()
 
     }
     
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
     
@@ -148,16 +151,18 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
         PullToRefresh.scrolling(scrollView: scrollView, vc: self)
         
         //infinite scroll
-        if (!isMoreDataLoading) {
+        if !isMoreDataLoading {
             // Calculate the position of one screen length before the bottom of the results
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
-            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+            if scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging {
                 isMoreDataLoading = true
                 
                 // Update position of loadingMoreView, and start loading indicator
-                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                let frame = CGRect(x: 0, y: tableView.contentSize.height,
+                                   width: tableView.bounds.size.width,
+                                   height: InfiniteScrollActivityView.defaultHeight)
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
                 
@@ -169,20 +174,20 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     func loadMoreData() {
         offSet += 10
         
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> () in
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
             
             self.isMoreDataLoading = false
             self.tweets = tweets
             self.loadingMoreView!.stopAnimating()
             self.tableView.reloadData()
             
-        }, failure: { (error: Error) -> () in
-            Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+        }, failure: { (error: Error) -> Void in
+            Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
         })
     }
 }
 
-extension TweetsViewController: updateTweetsDelegate{
+extension TweetsViewController: updateTweetsDelegate {
     func addTweet(tweet: Tweet) {
         tweets.insert(tweet, at: 0)
         tableView.reloadData()

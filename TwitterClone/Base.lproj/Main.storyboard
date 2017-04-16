@@ -281,12 +281,6 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7QU-ED-CDr">
-                                <rect key="frame" x="124" y="72" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNA-Kr-W0T">
                                 <rect key="frame" x="124" y="154" width="235" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -296,25 +290,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7QU-ED-CDr" firstAttribute="leading" secondItem="8tT-s3-r8l" secondAttribute="trailing" constant="8" id="3fE-36-teQ"/>
+                            <constraint firstItem="P9n-ii-iVY" firstAttribute="top" secondItem="o7x-KR-3Dd" secondAttribute="bottom" constant="30" id="0Mu-yB-E1B"/>
                             <constraint firstItem="P9n-ii-iVY" firstAttribute="leading" secondItem="8tT-s3-r8l" secondAttribute="trailing" constant="20" id="4cp-TY-rhF"/>
                             <constraint firstItem="QNA-Kr-W0T" firstAttribute="leading" secondItem="8tT-s3-r8l" secondAttribute="trailing" constant="8" id="5Mh-gy-Rs6"/>
                             <constraint firstItem="iSU-8B-C5k" firstAttribute="top" secondItem="YIF-lr-nLy" secondAttribute="bottom" constant="20" id="A41-tP-8oX"/>
                             <constraint firstItem="YIF-lr-nLy" firstAttribute="top" secondItem="8tT-s3-r8l" secondAttribute="bottom" constant="8" id="F8E-Xc-B9K"/>
                             <constraint firstItem="8tT-s3-r8l" firstAttribute="top" secondItem="o7x-KR-3Dd" secondAttribute="bottom" constant="20" id="GDC-pj-5Up"/>
-                            <constraint firstItem="7QU-ED-CDr" firstAttribute="top" secondItem="o7x-KR-3Dd" secondAttribute="bottom" constant="8" id="JD8-B9-hte"/>
                             <constraint firstItem="w49-K0-Yef" firstAttribute="top" secondItem="P9n-ii-iVY" secondAttribute="bottom" constant="10" id="KWc-Nm-aUV"/>
                             <constraint firstItem="QNA-Kr-W0T" firstAttribute="top" secondItem="w49-K0-Yef" secondAttribute="bottom" constant="20" id="M85-kJ-R5g"/>
                             <constraint firstItem="9TT-QR-Rl0" firstAttribute="top" secondItem="o7x-KR-3Dd" secondAttribute="bottom" constant="20" id="PoC-W7-Bo8"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="w49-K0-Yef" secondAttribute="trailing" constant="10" id="QfW-Nt-XnU"/>
                             <constraint firstItem="w49-K0-Yef" firstAttribute="leading" secondItem="8tT-s3-r8l" secondAttribute="trailing" constant="10" id="Rd3-58-Dd6"/>
                             <constraint firstItem="9TT-QR-Rl0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="P9n-ii-iVY" secondAttribute="trailing" constant="10" id="bhz-5l-B5V"/>
-                            <constraint firstItem="P9n-ii-iVY" firstAttribute="top" secondItem="7QU-ED-CDr" secondAttribute="bottom" constant="1" id="k2F-ig-dPk"/>
                             <constraint firstItem="YIF-lr-nLy" firstAttribute="trailing" secondItem="ZaT-BG-buL" secondAttribute="trailingMargin" id="nUt-8R-0em"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9TT-QR-Rl0" secondAttribute="trailing" constant="15" id="nYi-54-hEI"/>
                             <constraint firstItem="8tT-s3-r8l" firstAttribute="leading" secondItem="ZaT-BG-buL" secondAttribute="leadingMargin" id="vT5-by-f1G"/>
                             <constraint firstItem="YIF-lr-nLy" firstAttribute="leading" secondItem="ZaT-BG-buL" secondAttribute="leadingMargin" id="vXU-O5-J4d"/>
-                            <constraint firstItem="9TT-QR-Rl0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7QU-ED-CDr" secondAttribute="trailing" constant="139" id="xq2-YE-uQH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ucg-5n-Gdn">
@@ -335,7 +326,6 @@
                         <outlet property="nameLabel" destination="P9n-ii-iVY" id="apV-Sg-de4"/>
                         <outlet property="profileImage" destination="8tT-s3-r8l" id="VsF-FL-7K4"/>
                         <outlet property="replyingToLabel" destination="QNA-Kr-W0T" id="DU9-rO-Ikl"/>
-                        <outlet property="retweetNameLabel" destination="7QU-ED-CDr" id="JsB-E8-CCS"/>
                         <outlet property="screenNameLabel" destination="w49-K0-Yef" id="k7i-a6-wLQ"/>
                     </connections>
                 </viewController>
@@ -618,6 +608,6 @@
         <image name="twitterBirdCircle" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vd2-wN-rzA"/>
+        <segue reference="gbQ-hu-yq0"/>
     </inferredMetricsTieBreakers>
 </document>

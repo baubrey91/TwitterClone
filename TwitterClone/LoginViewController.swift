@@ -9,7 +9,6 @@
 import UIKit
 import BDBOAuth1Manager
 
-
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var logo: UIImageView!
@@ -33,12 +32,12 @@ class LoginViewController: UIViewController {
 
     @IBAction func onLoginButton(_ sender: Any) {
         
-        TwitterClient.sharedInstance?.login(success: { () -> () in
+        TwitterClient.sharedInstance?.login(success: { () -> Void in
             print("I've logged in")
             
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
             
-        }) { (error: Error) -> () in
+        }) { (error: Error) -> Void in
             print("Error: \(error.localizedDescription)")
         }
     }

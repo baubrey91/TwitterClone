@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol updateHomeDelegate {
+    
+    func updateRetweeted(bool: Bool)
+    func updateFavorite(bool: Bool)
+}
+
 class TweetDetailViewController: UIViewController {
     
     @IBOutlet weak var usernameLabel: UILabel!
@@ -21,8 +27,8 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    var tweet : Tweet?
-    
+    var tweet: Tweet?
+    var delegate: updateHomeDelegate?
     var retweetBool = true
     var favoriteBool = true
     
@@ -40,6 +46,8 @@ class TweetDetailViewController: UIViewController {
         favoriteBool = !(tweet?.favorited)!
 
         if let url = tweet?.profileImageUrl {
+            profileImage.layer.cornerRadius = 9.0
+            profileImage.layer.masksToBounds = true
             profileImage.setImageWith(URL(string: url)!)
         }
         if let timestamp = tweet?.timestamp {
@@ -64,7 +72,6 @@ class TweetDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
     @IBAction func retweetButton(_ sender: Any) {
         
         let img = (retweetBool) ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
@@ -77,15 +84,15 @@ class TweetDetailViewController: UIViewController {
                                                 let retweetCount = Int(self.tweet?.retweetCount ?? 0) + incValue
                                                 self.retweetsLabel.text = String(describing: retweetCount)
                                                 self.retweetButton.setImage(img, for: UIControlState.normal)
+                                                self.delegate?.updateRetweeted(bool: self.retweetBool)
                                                 self.retweetBool = !self.retweetBool
         },
                                              failure: {(error) in
-                                                Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+                                                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
 
         })
         
     }
-    
 
     @IBAction func favoriteButton(_ sender: Any) {
         
@@ -99,10 +106,11 @@ class TweetDetailViewController: UIViewController {
                                                 let favsCount = Int(self.tweet?.favoriteCount ?? 0) + incValue
                                                 self.favoritesLabel.text = String(describing: favsCount)
                                                 self.favoriteButton.setImage(img, for: UIControlState.normal)
+                                                self.delegate?.updateFavorite(bool: self.favoriteBool)
                                                 self.favoriteBool = !self.favoriteBool
         },
                                                failure: {(error) in
-                                                Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+                                                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
         }
     )}
 }

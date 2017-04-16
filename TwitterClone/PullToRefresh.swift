@@ -31,7 +31,7 @@ class PullToRefresh {
         vc.refreshLoadingView.addSubview(vc.compass_spinner)
         
         // Clip so the graphics don't stick out
-        vc.refreshLoadingView.clipsToBounds = true;
+        vc.refreshLoadingView.clipsToBounds = true
         
         // Hide the original spinner icon
         vc.refreshControl!.tintColor = UIColor.clear
@@ -58,7 +58,7 @@ class PullToRefresh {
         }
         
         // Flag that we are animating
-        vc.isRefreshAnimating = true;
+        vc.isRefreshAnimating = true
         
         UIView.animate(
             withDuration: Double(0.3),
@@ -72,11 +72,11 @@ class PullToRefresh {
                 vc.refreshColorView!.backgroundColor = colorArray[ColorIndex.colorIndex]
                 ColorIndex.colorIndex = (ColorIndex.colorIndex + 1) % colorArray.count
         },
-            completion: { finished in
+            completion: { _ in
                 // If still refreshing, keep spinning, else reset
-                if (vc.refreshControl!.isRefreshing) {
+                if vc.refreshControl!.isRefreshing {
                     self.animateRefreshView(vc: vc)
-                }else {
+                } else {
                     self.resetAnimation(vc: vc)
                 }
         }
@@ -86,78 +86,78 @@ class PullToRefresh {
     static func scrolling(scrollView: UIScrollView, vc: TweetsViewController) {
         
         // Get the current size of the refresh controller
-        var refreshBounds = vc.refreshControl!.bounds;
+        var refreshBounds = vc.refreshControl!.bounds
         
         // Distance the table has been pulled >= 0
-        let pullDistance = max(0.0, -vc.refreshControl!.frame.origin.y);
+        let pullDistance = max(0.0, -vc.refreshControl!.frame.origin.y)
         
         // Half the width of the table
-        let midX = vc.tableView.frame.size.width / 2.0;
+        let midX = vc.tableView.frame.size.width / 2.0
         
         // Calculate the width and height of our graphics
-        let compassHeight = vc.compass_background.bounds.size.height;
-        let compassHeightHalf = compassHeight / 2.0;
+        let compassHeight = vc.compass_background.bounds.size.height
+        let compassHeightHalf = compassHeight / 2.0
         
-        let compassWidth = vc.compass_background.bounds.size.width;
-        let compassWidthHalf = compassWidth / 2.0;
+        let compassWidth = vc.compass_background.bounds.size.width
+        let compassWidthHalf = compassWidth / 2.0
         
-        let spinnerHeight = vc.compass_spinner.bounds.size.height;
-        let spinnerHeightHalf = spinnerHeight / 2.0;
+        let spinnerHeight = vc.compass_spinner.bounds.size.height
+        let spinnerHeightHalf = spinnerHeight / 2.0
         
-        let spinnerWidth = vc.compass_spinner.bounds.size.width;
-        let spinnerWidthHalf = spinnerWidth / 2.0;
+        let spinnerWidth = vc.compass_spinner.bounds.size.width
+        let spinnerWidthHalf = spinnerWidth / 2.0
         
         // Calculate the pull ratio, between 0.0-1.0
-        let pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0;
+        let pullRatio = min( max(pullDistance, 0.0), 100.0) / 100.0
         
         // Set the Y coord of the graphics, based on pull distance
-        let compassY = pullDistance / 2.0 - compassHeightHalf;
-        let spinnerY = pullDistance / 2.0 - spinnerHeightHalf;
+        let compassY = pullDistance / 2.0 - compassHeightHalf
+        let spinnerY = pullDistance / 2.0 - spinnerHeightHalf
         
         // Calculate the X coord of the graphics, adjust based on pull ratio
-        var compassX = (midX + compassWidthHalf) - (compassWidth * pullRatio);
-        var spinnerX = (midX - spinnerWidth - spinnerWidthHalf) + (spinnerWidth * pullRatio);
+        var compassX = (midX + compassWidthHalf) - (compassWidth * pullRatio)
+        var spinnerX = (midX - spinnerWidth - spinnerWidthHalf) + (spinnerWidth * pullRatio)
         
         // When the compass and spinner overlap, keep them together
-        if (fabsf(Float(compassX - spinnerX)) < 1.0) {
-            vc.isRefreshIconsOverlap = true;
+        if fabsf(Float(compassX - spinnerX)) < 1.0 {
+            vc.isRefreshIconsOverlap = true
         }
         
         // If the graphics have overlapped or we are refreshing, keep them together
-        if (vc.isRefreshIconsOverlap || vc.refreshControl!.isRefreshing) {
-            compassX = midX - compassWidthHalf;
-            spinnerX = midX - spinnerWidthHalf;
+        if vc.isRefreshIconsOverlap || vc.refreshControl!.isRefreshing {
+            compassX = midX - compassWidthHalf
+            spinnerX = midX - spinnerWidthHalf
         }
         
         // Set the graphic's frames
-        var compassFrame = vc.compass_background.frame;
-        compassFrame.origin.x = compassX;
-        compassFrame.origin.y = compassY;
+        var compassFrame = vc.compass_background.frame
+        compassFrame.origin.x = compassX
+        compassFrame.origin.y = compassY
         
-        var spinnerFrame = vc.compass_spinner.frame;
-        spinnerFrame.origin.x = spinnerX;
-        spinnerFrame.origin.y = spinnerY;
+        var spinnerFrame = vc.compass_spinner.frame
+        spinnerFrame.origin.x = spinnerX
+        spinnerFrame.origin.y = spinnerY
         
-        vc.compass_background.frame = compassFrame;
-        vc.compass_spinner.frame = spinnerFrame;
+        vc.compass_background.frame = compassFrame
+        vc.compass_spinner.frame = spinnerFrame
         
         // Set the encompassing view's frames
-        refreshBounds.size.height = pullDistance;
+        refreshBounds.size.height = pullDistance
         
-        vc.refreshColorView.frame = refreshBounds;
-        vc.refreshLoadingView.frame = refreshBounds;
+        vc.refreshColorView.frame = refreshBounds
+        vc.refreshLoadingView.frame = refreshBounds
         
         // If we're refreshing and the animation is not playing, then play the animation
-        if (vc.refreshControl!.isRefreshing && !vc.isRefreshAnimating) {
+        if vc.refreshControl!.isRefreshing && !vc.isRefreshAnimating {
             PullToRefresh.animateRefreshView(vc: vc)
         }
     }
     
-    static func resetAnimation(vc : TweetsViewController) {
+    static func resetAnimation(vc: TweetsViewController) {
         
         // Reset our flags and }background color
-        vc.isRefreshAnimating = false;
-        vc.isRefreshIconsOverlap = false;
+        vc.isRefreshAnimating = false
+        vc.isRefreshIconsOverlap = false
         vc.refreshColorView.backgroundColor = UIColor.clear
     }
 }
