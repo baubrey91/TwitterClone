@@ -32,7 +32,7 @@ The following **additional** features are implemented:
 - [x] Time intervals of minutes hours or day depending on how recent it is. (NSDateTimeAgo library)
 - [x] Custom sized popover for creating new tweet.
 - [x] UIAlert if there is a callback error.
-MAKE REPO PUBLIC
+- [ ] Dont FORGET TO MAKE REPO PUBLIC
 - [ ] Cleaned code with swiftLint.
 - [ ] Async image loading.
 - [ ] Phone says TWEET when re-tweeting.
