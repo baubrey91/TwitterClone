@@ -43,19 +43,7 @@ class TweetCell: UITableViewCell {
             }
             if let stamp = tweet?.timestamp {
                 timeStamp.text = stamp.timeAgo()
-                
-//                let formatter = DateFormatter()
-//                let hoursSinceTweet = abs(stamp.timeIntervalSinceNow/360)
-//                if hoursSinceTweet < 24 {
-//                    timeStamp.text = "\(Int(floor(hoursSinceTweet)))h"
-//                    
-//                }else {
-//
-//                formatter.dateFormat = "MM/d/yy"
-//                timeStamp.text = formatter.string(from: stamp)
-               // }
             }
-
             
             let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
             retweetButton.setImage(retweetImg, for: UIControlState.normal)

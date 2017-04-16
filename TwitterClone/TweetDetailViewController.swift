@@ -35,7 +35,10 @@ class TweetDetailViewController: UIViewController {
         usernameLabel.text = tweet?.name
         screennameLabel.text = tweet?.screenName
         tweetTextLabel.text = tweet?.text
-        //retweetLabel.text = tweet?.
+
+        retweetBool = !(tweet?.retweeted)!
+        favoriteBool = !(tweet?.favorited)!
+
         if let url = tweet?.profileImageUrl {
             profileImage.setImageWith(URL(string: url)!)
         }
@@ -44,6 +47,10 @@ class TweetDetailViewController: UIViewController {
         }
         retweetsLabel.text = String(describing: tweet?.retweetCount ?? 0)
         favoritesLabel.text = String(describing: tweet?.favoriteCount ?? 0)
+        let favImg = (favoriteBool) ? UIImage(named: "favor.png") : UIImage(named: "favorRed.png")
+        let reImg = (retweetBool) ? UIImage(named: "retweet.png") : UIImage(named: "retweetGreen.png")
+        self.favoriteButton.setImage(favImg, for: UIControlState.normal)
+        self.retweetButton.setImage(reImg, for: UIControlState.normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
