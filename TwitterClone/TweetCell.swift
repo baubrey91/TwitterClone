@@ -21,13 +21,21 @@ class TweetCell: UITableViewCell {
     
     var favorite: Bool = false
     var retweet: Bool = false
+    var tweetToRetweet: Tweet?
     
     var tweet: Tweet! {
         didSet {
+            if let retweet = tweet.retweetedStatus {
+                retweetNameLabel.text = tweet.tweetUser!.screename
+                tweet = retweet
+            } else {
+                retweetNameLabel.text = ""
+                //tweet = tweet
+            }
             nameLabel.text = tweet?.name
             tweetTextLabel.text = tweet?.text
             screenNameLabel.text = "@" + tweet.screenName!
-            retweetNameLabel.text = tweet.screenName
+            //retweetNameLabel.text = tweet.screenName
             
             if let url = tweet?.profileImageUrl {
                 profileImage.setImageWith(URL(string: url)!)

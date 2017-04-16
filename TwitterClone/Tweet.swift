@@ -17,13 +17,20 @@ class Tweet: NSObject {
     var name: String?
     var profileImageUrl: String?
     var screenName: String?
-    let id: String?
+    var id: String?
+    var retweeted: Bool?
+    var favorited: Bool?
+    var tweetUser: User?
+    var retweetedStatus: Tweet?
+    
+    var retweetUserSN: String?
 
     
     init(dictionary: NSDictionary) {
+        
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoriteCount = (dictionary["text"] as? Int) ?? 0
+        favoriteCount = (dictionary["favorite_count"] as? Int) ?? 0
         let user = dictionary["user"] as! NSDictionary
         name = user["name"] as? String
         screenName = user["screen_name"] as? String
@@ -45,6 +52,14 @@ class Tweet: NSObject {
                 return dictionary["id_str"] as? String
             }
         }()
+        
+        self.favorited = dictionary["favorited"] as? Bool
+        self.retweeted = dictionary["retweeted"] as? Bool
+        
+        self.tweetUser = dictionary["user"] as? User
+
+        self.retweetedStatus = dictionary["retweeted_status"] as? Tweet
+
     }
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()

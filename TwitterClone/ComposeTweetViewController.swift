@@ -12,6 +12,7 @@ class ComposeTweetViewController: UIViewController {
     
     
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var retweetNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var messageTextView: UITextView!
