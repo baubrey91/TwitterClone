@@ -34,7 +34,6 @@ The following **additional** features are implemented:
 - [x] Time intervals of minutes hours or day depending on how recent it is. (NSDateTimeAgo library)
 - [x] Custom sized popover for creating new tweet.
 - [x] UIAlert if there is a callback error.
-- [ ] Dont FORGET TO MAKE REPO PUBLIC
 - [x] Cleaned code with swiftLint. (ignored a few rules)
 - [x] Async image loading with fade in. (I really enjoyed this from "flicks")
 - [x] Phone says TWEET TWEET when re-tweeting. (AVFoundation see line 71 of composeTweetViewController)
