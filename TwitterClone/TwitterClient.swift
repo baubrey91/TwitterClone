@@ -23,6 +23,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     var maxId: Int?
     var minId: Int?
+    var count = 20
     
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
@@ -82,7 +83,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         
-        var parameters = ["count": 20]
+        var parameters = ["count": count]
+        
+        count += 20
 
         get("1.1/statuses/home_timeline.json",
             parameters: parameters,

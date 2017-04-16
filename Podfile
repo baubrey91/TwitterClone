@@ -10,6 +10,7 @@ target 'TwitterClone' do
     pod 'BDBOAuth1Manager'
     pod 'AFNetworking'
     pod 'SVProgressHUD'
+    pod 'NSDateMinimalTimeAgo'
 
 
   target 'TwitterCloneTests' do

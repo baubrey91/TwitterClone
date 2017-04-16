@@ -94,18 +94,12 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "DetailSegue" {
-            
-            let vc = segue.destination as! TweetDetailViewController
-            let indexPath = tableView.indexPath(for: sender as! TweetCell)!
-            let cell = tableView.cellForRow(at: indexPath) as! TweetCell
-            vc.tweet = tweets[indexPath.row]
-        }
-        
         if segue.identifier == "ComposeSegue"{
             
             let navigationController = segue.destination as! UINavigationController
             let composeTweetViewController = navigationController.topViewController as! ComposeTweetViewController
+            composeTweetViewController.delegate = self
+            //composeTweetViewController.tweet
             //composeTweetViewController.delegate = self
         }
     }
@@ -128,27 +122,25 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-
-        
-        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let popoverViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
-        let detailViewController:TweetDetailViewController = storyboard.instantiateViewController(withIdentifier: "TweetDetailViewController") as! TweetDetailViewController
-        popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-        popoverViewController.popoverPresentationController!.delegate = self
-        detailViewController.delegate = self
-        //popoverViewController.setText(self.notes)
-        popoverViewController.isModalInPopover = true;
-        present(popoverViewController, animated: true, completion: nil)
-        let popoverController = popoverViewController.popoverPresentationController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
+        let detailsViewController = navigationController.topViewController as! TweetDetailViewController
+        detailsViewController.tweet = tweets[indexPath.row]
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.popover
+        navigationController.popoverPresentationController!.delegate = self
+        navigationController.isModalInPopover = true
+        present(navigationController, animated: true, completion: nil)
+        let popoverController = navigationController.popoverPresentationController
         popoverController?.passthroughViews = nil
         popoverController!.sourceView = self.view
         popoverController!.sourceRect = CGRect(x: 64,y: 160 , width: 300, height: 400)
-        popoverController!.permittedArrowDirections = UIPopoverArrowDirection()*/
+        popoverController!.permittedArrowDirections = UIPopoverArrowDirection()
+
     }
     
-   /* func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
-    }*/
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -181,11 +173,19 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
             
             self.isMoreDataLoading = false
             self.tweets = tweets
+            self.loadingMoreView!.stopAnimating()
             self.tableView.reloadData()
             
         }, failure: { (error: Error) -> () in
             Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
         })
+    }
+}
+
+extension TweetsViewController: updateTweetsDelegate{
+    func addTweet(tweet: Tweet) {
+        tweets.insert(tweet, at: 0)
+        tableView.reloadData()
     }
 }
 

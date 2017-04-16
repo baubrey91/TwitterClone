@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class TweetDetailViewController: UIViewController {
     
     @IBOutlet weak var usernameLabel: UILabel!
@@ -41,13 +40,21 @@ class TweetDetailViewController: UIViewController {
             profileImage.setImageWith(URL(string: url)!)
         }
         if let timestamp = tweet?.timestamp {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/d/yy"
-            timestampLabel.text = formatter.string(from: timestamp)
+            timestampLabel.text = timestamp.timeAgo()
         }
-        //timestampLabel.text = tweet?.timestamp
         retweetsLabel.text = String(describing: tweet?.retweetCount ?? 0)
         favoritesLabel.text = String(describing: tweet?.favoriteCount ?? 0)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let composeController = navigationController.topViewController as! ComposeTweetViewController
+        composeController.replyingTo = screennameLabel.text
+        composeController.replyID = tweet?.id
+    }
+    
+    @IBAction func dismissButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     

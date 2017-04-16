@@ -8,6 +8,11 @@
 
 import UIKit
 
+//send data foreward with segues and back with protocols
+protocol updateTweetsDelegate {
+    func addTweet(tweet: Tweet)
+}
+
 class ComposeTweetViewController: UIViewController {
     
     
@@ -17,6 +22,12 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var characterCount: UILabel!
+    @IBOutlet weak var replyingToLabel: UILabel!
+    
+    
+    var delegate: updateTweetsDelegate?
+    var replyingTo : String?
+    var replyID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +36,10 @@ class ComposeTweetViewController: UIViewController {
         profileImage.layer.cornerRadius = 9.0
         profileImage.layer.masksToBounds = true
         nameLabel.text = User.currentUser?.name
-        screenNameLabel.text = "@\(String(describing: User.currentUser?.screename))"
+        screenNameLabel.text = "@" + (User.currentUser?.screename)!
+        if (replyingTo != nil) {
+            replyingToLabel.text = "replying to \(replyingTo!)"
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -44,15 +58,17 @@ class ComposeTweetViewController: UIViewController {
         
         let status = self.messageTextView.text
         
-        var params: NSDictionary = ["status": status]
+        //let params: NSDictionary = ["status": status]
         
         //let currentText = inReplyToUserMention + messageTextView.text
+
         
         TwitterClient.sharedInstance?.postTweet(tweet: status!,
-                                                replyToStatusID: nil,
+                                                replyToStatusID: replyID,
                                                 success: { tweet in
+                                                    self.delegate?.addTweet(tweet: tweet)
                                                     self.dismiss(animated: true) {
-                                                        //self.callback?(tweet)
+                                                    
                                                     }},
                                                 failure: { (error) in
                                                     Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
@@ -64,6 +80,10 @@ class ComposeTweetViewController: UIViewController {
 extension ComposeTweetViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if textView.text == "Tweet about it..."{
+            textView.text = ""
+        }
         let charactersLeft = textView.text.utf16.count + text.utf16.count - range.length
         
         characterCount.text =  "\(125 - charactersLeft)"

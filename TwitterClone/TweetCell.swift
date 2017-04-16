@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NSDateMinimalTimeAgo
 
 class TweetCell: UITableViewCell {
 
@@ -41,17 +42,28 @@ class TweetCell: UITableViewCell {
                 profileImage.setImageWith(URL(string: url)!)
             }
             if let stamp = tweet?.timestamp {
-                let formatter = DateFormatter()
-                let hoursSinceTweet = abs(stamp.timeIntervalSinceNow/360)
-                if hoursSinceTweet < 24 {
-                    timeStamp.text = "\(Int(floor(hoursSinceTweet)))h"
-                    
-                }else {
-
-                formatter.dateFormat = "MM/d/yy"
-                timeStamp.text = formatter.string(from: stamp)
-                }
+                timeStamp.text = stamp.timeAgo()
+                
+//                let formatter = DateFormatter()
+//                let hoursSinceTweet = abs(stamp.timeIntervalSinceNow/360)
+//                if hoursSinceTweet < 24 {
+//                    timeStamp.text = "\(Int(floor(hoursSinceTweet)))h"
+//                    
+//                }else {
+//
+//                formatter.dateFormat = "MM/d/yy"
+//                timeStamp.text = formatter.string(from: stamp)
+               // }
             }
+
+            
+            let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+            retweetButton.setImage(retweetImg, for: UIControlState.normal)
+            
+            let favImg = ((tweet?.favorited)! ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png"))
+            favoriteButton.setImage(favImg, for: UIControlState.normal)
+
+
         }
     }
     
@@ -67,26 +79,5 @@ class TweetCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func replyButton(_ sender: Any) {
-        
-        
-    }
-    
-    @IBAction func retweetButton(_ sender: Any) {
-        
-        let img = (retweet) ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
-        retweetButton.contentMode = .scaleAspectFit
-        retweetButton.clipsToBounds = true
-        retweetButton.setImage(img, for: UIControlState.normal)
-        retweet = !retweet
-    }
-    
-    @IBAction func favoriteButton(_ sender: Any) {
-        
-        let img = (favorite) ? UIImage(named: "favorite.png") : UIImage(named: "favoriteGold.png")
-        favoriteButton.contentMode = .scaleAspectFit
-        favoriteButton.clipsToBounds = true
-        favoriteButton.setImage(img, for: UIControlState.normal)
-        favorite = !favorite
-    }
+
 }
