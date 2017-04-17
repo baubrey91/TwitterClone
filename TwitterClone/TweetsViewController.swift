@@ -29,6 +29,8 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     @IBOutlet weak var tableView: UITableView!
 
+    
+    //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +68,10 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
             SVProgressHUD.dismiss()
             Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        offSet = 0
     }
     
     func refresh() {
@@ -123,15 +129,18 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //initializes nav controller and detail vc in a smaller frame to make it a popover
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navigationController: UINavigationController =
             storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
         let detailsViewController = navigationController.topViewController as! TweetDetailViewController
+        
         detailsViewController.tweet = tweets[indexPath.row]
         navigationController.modalPresentationStyle = UIModalPresentationStyle.popover
         navigationController.popoverPresentationController!.delegate = self
         navigationController.isModalInPopover = true
         present(navigationController, animated: true, completion: nil)
+        
         let popoverController = navigationController.popoverPresentationController
         popoverController?.passthroughViews = nil
         popoverController!.sourceView = self.view
@@ -172,6 +181,7 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     }
     
     func loadMoreData() {
+        //load 10 more when scrolling to bottom
         offSet += 10
         
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
@@ -187,10 +197,10 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     }
 }
 
+//tweet you just composed gets inserted into array without calling server
 extension TweetsViewController: updateTweetsDelegate {
     func addTweet(tweet: Tweet) {
         tweets.insert(tweet, at: 0)
         tableView.reloadData()
     }
 }
-

@@ -28,7 +28,7 @@ class TweetCell: UITableViewCell {
     var tweet: Tweet! {
         didSet {
             if let retweet = tweet.retweetedStatus {
-                retweetNameLabel.text = tweet.tweetUser!.screename
+                retweetNameLabel.text = tweet.tweetUser!.screename! + "retweeted"
                 tweet = retweet
             } else {
                 retweetNameLabel.text = ""
@@ -72,6 +72,7 @@ class TweetCell: UITableViewCell {
 
 extension TweetCell: updateHomeDelegate {
     
+    //send information back to hometimeline to update
     func updateRetweeted(bool: Bool) {
         tweet?.retweeted = bool
         let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
@@ -86,7 +87,7 @@ extension TweetCell: updateHomeDelegate {
 }
 
 extension UIImageView {
-    
+    //function in uiimage to fade in images, didn't feel like making a seperate file for this but it shouldn't be here
     func fadeInImageRequest(imgURL: NSURL) {
         
         let imageRequest = URLRequest(url: imgURL as URL)

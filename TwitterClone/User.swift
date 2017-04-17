@@ -17,6 +17,7 @@ class User: NSObject {
     
     var dictionary: NSDictionary?
 
+    //initial user after getting oauth certificaiton
     init(dictionary: NSDictionary) {
 
         self.dictionary = dictionary
@@ -31,6 +32,7 @@ class User: NSObject {
         tagline = dictionary["description"] as? String
     }
 
+    //assign static user through application
     static let userDidLogoutNotification = "UserDidLogout"
 
     static var _currentUser: User?
@@ -53,6 +55,7 @@ class User: NSObject {
 
             return _currentUser
         }
+        
         set(user) {
 
             _currentUser = user

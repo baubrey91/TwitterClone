@@ -15,7 +15,7 @@ protocol updateHomeDelegate {
 }
 
 class TweetDetailViewController: UIViewController {
-    
+    //connections
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
@@ -27,6 +27,7 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
+    //variables
     var tweet: Tweet?
     var delegate: updateHomeDelegate?
     var retweetBool = true
@@ -61,6 +62,7 @@ class TweetDetailViewController: UIViewController {
         self.retweetButton.setImage(reImg, for: UIControlState.normal)
     }
     
+    //send reply id and screen if replying to a tweet
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
         let composeController = navigationController.topViewController as! ComposeTweetViewController

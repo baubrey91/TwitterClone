@@ -10,6 +10,7 @@ import UIKit
 
 class Tweet: NSObject {
     
+    //tweet variables
     var text: String?
     var timestamp: NSDate?
     var retweetCount: Int = 0
@@ -26,6 +27,7 @@ class Tweet: NSObject {
 
     init(dictionary: NSDictionary) {
 
+        //configure all variables for tweet cell
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoriteCount = (dictionary["favorite_count"] as? Int) ?? 0
@@ -36,6 +38,7 @@ class Tweet: NSObject {
 
         let timestampString = dictionary["created_at"] as? String
 
+        
         if let timestampString = timestampString {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
@@ -58,6 +61,7 @@ class Tweet: NSObject {
         self.retweetedStatus = dictionary["retweeted_status"] as? Tweet
 
     }
+    //iterate through dicionary of tweets and append them to an array to send out
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
         var tweets = [Tweet]()
 

@@ -17,6 +17,7 @@ let authorize = "/oauth/authorize?oauth_token="
 
 class TwitterClient: BDBOAuth1SessionManager {
 
+    //singleton shared instance
     static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com")! as URL!,
                                                         consumerKey: consumerKey,
                                                         consumerSecret: consumerSecret)
@@ -28,6 +29,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginSuccess: (() -> Void)?
     var loginFailure: ((Error) -> Void)?
 
+    //login function
     func login(success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
 
         loginSuccess = success
@@ -47,6 +49,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    //logout function
     func logout() {
 
         User.currentUser = nil
@@ -56,6 +59,8 @@ class TwitterClient: BDBOAuth1SessionManager {
                                         object: nil)
 
     }
+    
+    
     func handleOpenUrl(url: URL) {
 
         let requestToken = BDBOAuth1Credential(queryString: url.query)
@@ -79,6 +84,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    //load tweets for home
     func homeTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
 
         let parameters = ["count": count]
@@ -115,6 +121,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     }
 
+    //get current account
     func currentAccount(sucess: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
         
         get("1.1/account/verify_credentials.json",
@@ -132,6 +139,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    //favorite another persons tweet
     func favorite(create: Bool,
                   tweet: Tweet,
                   success: @escaping (Void) -> Void,
@@ -150,6 +158,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    //retweet someone elses tweet
     func reweet(id: String,
                 retweet: Bool,
                 success: @escaping (Bool) -> (Void),
@@ -169,6 +178,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
 
+    //compose a tweet
     func postTweet(tweet: String,
                    replyToStatusID: String?,
                    success: @escaping (Tweet) -> (Void),

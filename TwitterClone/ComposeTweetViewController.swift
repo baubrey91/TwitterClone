@@ -16,6 +16,7 @@ protocol updateTweetsDelegate {
 
 class ComposeTweetViewController: UIViewController {
     
+    //connections
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var retweetNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -24,6 +25,7 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var characterCount: UILabel!
     @IBOutlet weak var replyingToLabel: UILabel!
 
+    //variables
     var delegate: updateTweetsDelegate?
     var replyingTo: String?
     var replyID: String?

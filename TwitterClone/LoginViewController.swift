@@ -42,6 +42,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    //sends you to twitter site to sign up. If you are already logged in it will take you to your home screen
     @IBAction func onSignUpButton(_ sender: Any) {
         
         UIApplication.shared.openURL(NSURL(string: "https://twitter.com/signup?lang=en")! as URL)
