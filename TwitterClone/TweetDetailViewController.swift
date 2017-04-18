@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol updateHomeDelegate {
+    
+    func updateRetweeted(bool: Bool)
+    func updateFavorite(bool: Bool)
+}
 
 class TweetDetailViewController: UIViewController {
-    
+    //connections
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
@@ -22,8 +27,9 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    var tweet : Tweet?
-    
+    //variables
+    var tweet: Tweet?
+    var delegate: updateHomeDelegate?
     var retweetBool = true
     var favoriteBool = true
     
@@ -36,20 +42,37 @@ class TweetDetailViewController: UIViewController {
         usernameLabel.text = tweet?.name
         screennameLabel.text = tweet?.screenName
         tweetTextLabel.text = tweet?.text
-        //retweetLabel.text = tweet?.
+
+        retweetBool = !(tweet?.retweeted)!
+        favoriteBool = !(tweet?.favorited)!
+
         if let url = tweet?.profileImageUrl {
+            profileImage.layer.cornerRadius = 9.0
+            profileImage.layer.masksToBounds = true
             profileImage.setImageWith(URL(string: url)!)
         }
         if let timestamp = tweet?.timestamp {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/d/yy"
-            timestampLabel.text = formatter.string(from: timestamp)
+            timestampLabel.text = timestamp.timeAgo()
         }
-        //timestampLabel.text = tweet?.timestamp
         retweetsLabel.text = String(describing: tweet?.retweetCount ?? 0)
         favoritesLabel.text = String(describing: tweet?.favoriteCount ?? 0)
+        let favImg = (favoriteBool) ? UIImage(named: "favor.png") : UIImage(named: "favorRed.png")
+        let reImg = (retweetBool) ? UIImage(named: "retweet.png") : UIImage(named: "retweetGreen.png")
+        self.favoriteButton.setImage(favImg, for: UIControlState.normal)
+        self.retweetButton.setImage(reImg, for: UIControlState.normal)
     }
     
+    //send reply id and screen if replying to a tweet
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let composeController = navigationController.topViewController as! ComposeTweetViewController
+        composeController.replyingTo = screennameLabel.text
+        composeController.replyID = tweet?.id
+    }
+    
+    @IBAction func dismissButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func retweetButton(_ sender: Any) {
         
@@ -63,15 +86,15 @@ class TweetDetailViewController: UIViewController {
                                                 let retweetCount = Int(self.tweet?.retweetCount ?? 0) + incValue
                                                 self.retweetsLabel.text = String(describing: retweetCount)
                                                 self.retweetButton.setImage(img, for: UIControlState.normal)
+                                                self.delegate?.updateRetweeted(bool: self.retweetBool)
                                                 self.retweetBool = !self.retweetBool
         },
                                              failure: {(error) in
-                                                Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+                                                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
 
         })
         
     }
-    
 
     @IBAction func favoriteButton(_ sender: Any) {
         
@@ -85,10 +108,11 @@ class TweetDetailViewController: UIViewController {
                                                 let favsCount = Int(self.tweet?.favoriteCount ?? 0) + incValue
                                                 self.favoritesLabel.text = String(describing: favsCount)
                                                 self.favoriteButton.setImage(img, for: UIControlState.normal)
+                                                self.delegate?.updateFavorite(bool: self.favoriteBool)
                                                 self.favoriteBool = !self.favoriteBool
         },
                                                failure: {(error) in
-                                                Helpers.Alert(errorMessage: error.localizedDescription, vc: self)
+                                                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
         }
     )}
 }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AFNetworking
+import NSDateMinimalTimeAgo
 
 class TweetCell: UITableViewCell {
 
@@ -26,7 +28,7 @@ class TweetCell: UITableViewCell {
     var tweet: Tweet! {
         didSet {
             if let retweet = tweet.retweetedStatus {
-                retweetNameLabel.text = tweet.tweetUser!.screename
+                retweetNameLabel.text = tweet.tweetUser!.screename! + "retweeted"
                 tweet = retweet
             } else {
                 retweetNameLabel.text = ""
@@ -38,20 +40,21 @@ class TweetCell: UITableViewCell {
             //retweetNameLabel.text = tweet.screenName
             
             if let url = tweet?.profileImageUrl {
-                profileImage.setImageWith(URL(string: url)!)
+                let imageUrl: NSURL = NSURL(string: url)!
+                profileImage.layer.cornerRadius = 9.0
+                profileImage.layer.masksToBounds = true
+                profileImage.fadeInImageRequest(imgURL: imageUrl)
             }
             if let stamp = tweet?.timestamp {
-                let formatter = DateFormatter()
-                let hoursSinceTweet = abs(stamp.timeIntervalSinceNow/360)
-                if hoursSinceTweet < 24 {
-                    timeStamp.text = "\(Int(floor(hoursSinceTweet)))h"
-                    
-                }else {
-
-                formatter.dateFormat = "MM/d/yy"
-                timeStamp.text = formatter.string(from: stamp)
-                }
+                timeStamp.text = stamp.timeAgo()
             }
+            
+            let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+            retweetButton.setImage(retweetImg, for: UIControlState.normal)
+            
+            let favImg = ((tweet?.favorited)! ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png"))
+            favoriteButton.setImage(favImg, for: UIControlState.normal)
+
         }
     }
     
@@ -60,33 +63,49 @@ class TweetCell: UITableViewCell {
         // Initialization code
     }
     
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+}
+
+extension TweetCell: updateHomeDelegate {
     
-    @IBAction func replyButton(_ sender: Any) {
-        
-        
+    //send information back to hometimeline to update
+    func updateRetweeted(bool: Bool) {
+        tweet?.retweeted = bool
+        let retweetImg = (tweet?.retweeted)! ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
+        retweetButton.setImage(retweetImg, for: UIControlState.normal)
     }
     
-    @IBAction func retweetButton(_ sender: Any) {
-        
-        let img = (retweet) ? UIImage(named: "retweetGreen.png") : UIImage(named: "retweet.png")
-        retweetButton.contentMode = .scaleAspectFit
-        retweetButton.clipsToBounds = true
-        retweetButton.setImage(img, for: UIControlState.normal)
-        retweet = !retweet
+    func updateFavorite(bool: Bool) {
+        tweet?.favorited = bool
+        let favImg = ((tweet?.favorited)! ? UIImage(named: "favorRed.png") : UIImage(named: "favor.png"))
+        favoriteButton.setImage(favImg, for: UIControlState.normal)
     }
-    
-    @IBAction func favoriteButton(_ sender: Any) {
+}
+
+extension UIImageView {
+    //function in uiimage to fade in images, didn't feel like making a seperate file for this but it shouldn't be here
+    func fadeInImageRequest(imgURL: NSURL) {
         
-        let img = (favorite) ? UIImage(named: "favorite.png") : UIImage(named: "favoriteGold.png")
-        favoriteButton.contentMode = .scaleAspectFit
-        favoriteButton.clipsToBounds = true
-        favoriteButton.setImage(img, for: UIControlState.normal)
-        favorite = !favorite
+        let imageRequest = URLRequest(url: imgURL as URL)
+        
+        self.setImageWith(imageRequest as URLRequest, placeholderImage: nil, success: {( imageRequest, imageResponse, image) -> Void in
+            
+            if imageResponse != nil {
+                self.alpha = 0.0
+                
+                self.image = image
+                UIView.animate(withDuration: 2.0, animations: { () -> Void in
+                    self.alpha = 3.0
+                })
+            } else {
+                self.image = image
+            }
+        }, failure: {(imageRequest, imageResponse, error) -> Void in
+            
+        })
     }
 }
