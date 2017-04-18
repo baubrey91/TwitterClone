@@ -35,8 +35,16 @@ class LoginViewController: UIViewController {
         TwitterClient.sharedInstance?.login(success: { () -> Void in
             print("I've logged in")
             
-            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            let storyboard = UIStoryboard(name: "Hamburger", bundle: nil)
+            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerMenu") as! HamburgerViewController
             
+            self.present(hamburgerViewController, animated: true, completion: nil)
+            //window?.rootViewController = hamburgerViewController
+            
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            menuViewController.hamburgerViewController = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
+                        
         }) { (error: Error) -> Void in
             print("Error: \(error.localizedDescription)")
         }

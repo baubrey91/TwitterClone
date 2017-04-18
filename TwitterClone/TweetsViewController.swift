@@ -130,7 +130,7 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //initializes nav controller and detail vc in a smaller frame to make it a popover
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Timeline", bundle: nil)
         let navigationController: UINavigationController =
             storyboard.instantiateViewController(withIdentifier: "NavController") as! UINavigationController
         let detailsViewController = navigationController.topViewController as! TweetDetailViewController

@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NSDateMinimalTimeAgo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TwitterClone.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,6 +42,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>13C663DDB5E7C98BF40BC406B3DA7543</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>579B34B101DD4C08AEE3E30575794274</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AA3A8F0AEA2F7AA5268A11B01FBACE7C</key>
 		<dict>
 			<key>primary</key>
@@ -47,22 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B4D1E603FA62B9D172FE57E7242492AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D3C4FDB3E13DB265C42E9922E54EDBE5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DD08B071644C635261E151819F7F6FA8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E4329B74982F3E57C829B26D5E41A361</key>
 		<dict>
 			<key>primary</key>
 			<true/>
