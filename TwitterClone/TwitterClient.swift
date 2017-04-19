@@ -120,6 +120,22 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     
     }
+    
+    func mentionsTimeline(success: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        get("1.1/statuses/mentions_timeline.json", parameters: nil,
+            progress: { (Progress) -> Void in
+                // Do nothing
+        },
+            success: { (task: URLSessionDataTask, response: Any?) -> Void in
+                let dictionaries = response as! [NSDictionary]
+                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+                success(tweets)
+                
+        }, failure: { (task: URLSessionTask?, error: Error) -> Void in
+            failure(error)
+        }
+        )
+    }
 
     //get current account
     func currentAccount(sucess: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {

@@ -26,6 +26,7 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     var isMoreDataLoading = false
     var loadingMoreView: InfiniteScrollActivityView?
     var offSet = 0
+    var mentionsMode = false
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -58,16 +59,30 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
 
         //load top 20 tweets to home
         SVProgressHUD.show()
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
-            
-            self.tweets = tweets
-            self.tableView.reloadData()
-            SVProgressHUD.dismiss()
-
-        }, failure: { (error: Error) -> Void in
-            SVProgressHUD.dismiss()
-            Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
-        })
+        
+        if mentionsMode {
+            TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) -> Void in
+                
+                self.tweets = tweets
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+                
+            }, failure: { (error: Error) -> Void in
+                SVProgressHUD.dismiss()
+                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
+            })
+        } else {
+            TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
+                
+                self.tweets = tweets
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+                
+            }, failure: { (error: Error) -> Void in
+                SVProgressHUD.dismiss()
+                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
+            })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
