@@ -13,7 +13,13 @@ class User: NSObject {
     var name: String?
     var screename: String?
     var profileUrl: URL?
+    var profileBackgroundUrl: URL?
     var tagline: String?
+    
+    var location: String?
+    var tweetsCount: Int?
+    var followingCount: Int?
+    var followersCount: Int?
     
     var dictionary: NSDictionary?
 
@@ -21,7 +27,7 @@ class User: NSObject {
     init(dictionary: NSDictionary) {
 
         self.dictionary = dictionary
-        print(dictionary)
+
         name = dictionary["name"] as? String
         screename = dictionary["screen_name"] as? String
         
@@ -30,7 +36,17 @@ class User: NSObject {
             profileUrl = URL(string: profileUrlString)
         }
         
+        let profileBackgroundURLString = dictionary["profile_banner_url"] as? String
+        if let profileBackgroundURLString = profileBackgroundURLString {
+            profileBackgroundUrl = URL(string: profileBackgroundURLString)
+        }
+        
         tagline = dictionary["description"] as? String
+        
+        location = dictionary["location"] as? String
+        tweetsCount = dictionary["statuses_count"] as? Int
+        followingCount = dictionary["following"] as? Int
+        followersCount = dictionary["followers_count"] as? Int
     }
 
     //assign static user through application
