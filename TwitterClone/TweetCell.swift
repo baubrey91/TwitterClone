@@ -44,6 +44,10 @@ class TweetCell: UITableViewCell {
                 profileImage.layer.cornerRadius = 9.0
                 profileImage.layer.masksToBounds = true
                 profileImage.fadeInImageRequest(imgURL: imageUrl)
+                
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onUserTap(tapGestureRecognizer:)))
+                tapGesture.delegate = self
+                profileImage.addGestureRecognizer(tapGesture)
             }
             if let stamp = tweet?.timestamp {
                 timeStamp.text = stamp.timeAgo()
@@ -57,6 +61,11 @@ class TweetCell: UITableViewCell {
 
         }
     }
+    
+    func onUserTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        print("hello")
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

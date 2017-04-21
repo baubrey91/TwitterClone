@@ -10,47 +10,36 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-//    var userName: String?
-//    var screenName: String?
-//    var tweetCount: Int?
-//    var followingCount: Int?
-//    var followersCount: Int?
-//    var backgroundImage: URL?
     @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var screennameLabel: UILabel!
     
     @IBOutlet weak var tweetCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var followerCountLabel: UILabel!
     
-    var user: User? {
-        didSet {
-            //backgroundImage.setImageWith((user?.profileBackgroundUrl)!)
-            tweetCountLabel.text = "\(user?.tweetsCount)"
-            followingCountLabel.text = "\(user?.followingCount)"
-            followerCountLabel.text = "\(user?.followersCount)"
-        }
-    }
+    var user: User? = User.currentUser
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if user != nil {
+            backgroundImage.setImageWith((user?.profileBackgroundUrl)!)
+            usernameLabel.text = user?.name
+            screennameLabel.text = user?.screename
+            tweetCountLabel.text = "\(user?.tweetsCount ?? 0)"
+            followingCountLabel.text = "\(user?.followingCount ?? 0)"
+            followerCountLabel.text = "\(user?.followersCount ?? 0)"
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
