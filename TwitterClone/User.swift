@@ -21,6 +21,7 @@ class User: NSObject {
     init(dictionary: NSDictionary) {
 
         self.dictionary = dictionary
+        print(dictionary)
         name = dictionary["name"] as? String
         screename = dictionary["screen_name"] as? String
         

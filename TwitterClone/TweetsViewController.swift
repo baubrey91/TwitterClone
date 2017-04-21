@@ -71,6 +71,7 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
                 SVProgressHUD.dismiss()
                 Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
             })
+            
         } else {
             TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
                 
@@ -199,16 +200,30 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
         //load 10 more when scrolling to bottom
         offSet += 10
         
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
+        if mentionsMode {
+            TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) -> Void in
+                
+                self.tweets = tweets
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+                
+            }, failure: { (error: Error) -> Void in
+                SVProgressHUD.dismiss()
+                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
+            })
+        } else{
             
-            self.isMoreDataLoading = false
-            self.tweets = tweets
-            self.loadingMoreView!.stopAnimating()
-            self.tableView.reloadData()
-            
-        }, failure: { (error: Error) -> Void in
-            Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
-        })
+            TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) -> Void in
+                
+                self.isMoreDataLoading = false
+                self.tweets = tweets
+                self.loadingMoreView!.stopAnimating()
+                self.tableView.reloadData()
+                
+            }, failure: { (error: Error) -> Void in
+                Helpers.alertMessage(errorMessage: error.localizedDescription, vc: self)
+            })
+        }
     }
 }
 
