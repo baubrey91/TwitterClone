@@ -10,6 +10,8 @@ import UIKit
 
 class HamburgerViewController: UIViewController {
     
+    static let sharedInstance = UIStoryboard(name: "Hamburger", bundle: nil).instantiateViewController(withIdentifier: "HamburgerMenu") as! HamburgerViewController
+    
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var leftMargainConstraint: NSLayoutConstraint!
@@ -55,6 +57,19 @@ class HamburgerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func moveMenu() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [],
+                       animations: {
+                        if self.leftMargainConstraint.constant == 0 {
+                            self.leftMargainConstraint.constant = self.view.frame.size.width - 60
+                        } else {
+                            self.leftMargainConstraint.constant = 0
+                        }
+                        self.view.layoutIfNeeded()
+        })
+        
+    }
+    
     @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         let velocity = sender.velocity(in: view)
@@ -68,7 +83,6 @@ class HamburgerViewController: UIViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 if velocity.x > 0 {
                     self.leftMargainConstraint.constant = self.view.frame.size.width - 50
-                    
                 } else {
                     self.leftMargainConstraint.constant = 0
                 }

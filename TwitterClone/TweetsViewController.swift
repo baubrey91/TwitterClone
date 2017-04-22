@@ -112,7 +112,9 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     @IBAction func onLogoutButton(_ sender: Any) {
         
-            TwitterClient.sharedInstance?.logout()
+        HamburgerViewController.sharedInstance.moveMenu()
+        
+            //TwitterClient.sharedInstance?.logout()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

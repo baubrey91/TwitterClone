@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
             print("I've logged in")
             
             let storyboard = UIStoryboard(name: "Hamburger", bundle: nil)
-            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerMenu") as! HamburgerViewController
+            let hamburgerViewController = HamburgerViewController.sharedInstance
             
             self.present(hamburgerViewController, animated: true, completion: nil)
             //window?.rootViewController = hamburgerViewController

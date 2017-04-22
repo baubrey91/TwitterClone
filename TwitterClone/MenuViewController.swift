@@ -25,6 +25,9 @@ class MenuViewController: UIViewController {
     var viewControllers: [UIViewController] = []
     var hamburgerViewController: HamburgerViewController!
     
+    let titles = ["TimeLine","Profile","Mentions", "Logout"]
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,18 +69,23 @@ class MenuViewController: UIViewController {
 
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         
+        if indexPath.row == 3 {
+            TwitterClient.sharedInstance?.logout()
+        } else {
+            
+        tableView.deselectRow(at: indexPath, animated: true)
         hamburgerViewController.contentViewController = viewControllers[indexPath.row]
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
-        let titles = ["TimeLine","Profile","Mentions", "Accounts"]
         cell.menuTitleLabel.text = titles[indexPath.row]
         
         return cell

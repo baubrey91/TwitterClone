@@ -16,22 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, 
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        /*let storyboard = UIStoryboard(name: "Hamburger", bundle: nil)
-        let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerMenu") as! HamburgerViewController
-        
-        window?.rootViewController = hamburgerViewController
-        
-        let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        menuViewController.hamburgerViewController = hamburgerViewController
-        hamburgerViewController.menuViewController = menuViewController*/
         
         if User.currentUser != nil {
             print("There is a current User")
             
             let storyboard = UIStoryboard(name: "Hamburger", bundle: nil)
-            let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerMenu") as! HamburgerViewController
+            let hamburgerViewController = HamburgerViewController.sharedInstance
             
             window?.rootViewController = hamburgerViewController
             
