@@ -112,9 +112,7 @@ class TweetsViewController: UIViewController, UIPopoverPresentationControllerDel
     
     @IBAction func onLogoutButton(_ sender: Any) {
         
-        HamburgerViewController.sharedInstance.moveMenu()
-        
-            //TwitterClient.sharedInstance?.logout()
+        HamburgerViewController.sharedInstance.moveMenu()        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -137,7 +135,21 @@ extension TweetsViewController : UITableViewDelegate, UITableViewDataSource, UIP
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets[indexPath.row]
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnProfile))
+        cell.profileImage.isUserInteractionEnabled = true
+        cell.profileImage.addGestureRecognizer(tapGesture)
+        
         return cell
+    }
+    
+    func tapOnProfile(tapGestureRecognizer: UITapGestureRecognizer) {
+        let location = tapGestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: location)
+        let tweet = tweets[(indexPath?.row)!]
+        let profileVC = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as? ProfileViewController
+        profileVC?.user = tweet.tweetUser
+        self.navigationController?.pushViewController(profileVC!, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

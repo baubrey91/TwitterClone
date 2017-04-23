@@ -56,7 +56,10 @@ class Tweet: NSObject {
         self.favorited = dictionary["favorited"] as? Bool
         self.retweeted = dictionary["retweeted"] as? Bool
 
-        self.tweetUser = dictionary["user"] as? User
+        if let tweetUsr: NSDictionary = dictionary["user"] as? NSDictionary {
+            self.tweetUser = User(dictionary: tweetUsr)
+
+        }
 
         self.retweetedStatus = dictionary["retweeted_status"] as? Tweet
 

@@ -45,7 +45,7 @@ class User: NSObject {
         
         location = dictionary["location"] as? String
         tweetsCount = dictionary["statuses_count"] as? Int
-        followingCount = dictionary["following"] as? Int
+        followingCount = dictionary["friends_count"] as? Int
         followersCount = dictionary["followers_count"] as? Int
     }
 

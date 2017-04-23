@@ -13,9 +13,8 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var timeLineNavController: UIViewController!
-    private var profileNavController: UIViewController!
     private var mentionsNavController: UINavigationController!
-    private var profileViewController: ProfileViewController!
+    private var profileNavController: UINavigationController!
 
     
     @IBOutlet weak var profileImage: UIImageView!
@@ -37,8 +36,8 @@ class MenuViewController: UIViewController {
         let timeLineStoryboard = UIStoryboard(name: "Timeline", bundle: nil)
         let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
         timeLineNavController = timeLineStoryboard.instantiateViewController(withIdentifier: "TweetNavigationController")
-        //profileNavController = profileStoryboard.instantiateViewController(withIdentifier: "ProfileViewController")
-        profileViewController = profileStoryboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileNavController = profileStoryboard.instantiateViewController(withIdentifier: "ProfileNavController") as! UINavigationController
+        let profileViewController = profileNavController.topViewController as! ProfileViewController
         profileViewController.user = User.currentUser
         mentionsNavController = timeLineStoryboard.instantiateViewController(withIdentifier: "TweetNavigationController") as! UINavigationController
         let mentionsViewController = mentionsNavController.topViewController as! TweetsViewController
