@@ -48,11 +48,6 @@ class ProfileViewController: UIViewController {
     @IBAction func onMenuButton(_ sender: Any) {
         HamburgerViewController.sharedInstance.moveMenu()
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,13 +91,13 @@ class ProfileViewController: UIViewController {
             scrollView.addSubview(nameLabel)
         }
         
-        if let screenname = user?.screename {
+        if let sn = user?.screename {
             let screennameLabel = UILabel(frame: CGRect(x: 0, y: 196, width: width - 16, height: 16))
             let screennameAttributes = [
                 NSForegroundColorAttributeName: UIColor.white,
                 NSFontAttributeName: UIFont.systemFont(ofSize: 13.0)
             ]
-            let attributedText = NSAttributedString(string: "@\(screenname)", attributes: screennameAttributes)
+            let attributedText = NSAttributedString(string: "@\(sn)", attributes: screennameAttributes)
             screennameLabel.attributedText = attributedText
             screennameLabel.numberOfLines = 0
             screennameLabel.lineBreakMode = .byWordWrapping
@@ -154,13 +149,11 @@ extension ProfileViewController: UIScrollViewDelegate {
         let duration: TimeInterval = Double(width / velocity)
         
         if self.scrollView.panGestureRecognizer.translation(in: self.scrollView.superview).x > 0 {
-            // Left (Page 1)
             UIView.animate(withDuration: duration, animations: {
                 self.backgroundImage.alpha = 1
             })
             
         } else {
-            // Right (Page 2)
             UIView.animate(withDuration: duration, animations: {
                 self.backgroundImage.alpha = 0.4
             })
