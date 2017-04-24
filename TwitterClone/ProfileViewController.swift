@@ -23,8 +23,8 @@ class ProfileViewController: UIViewController {
     var width: CGFloat = UIScreen.main.bounds.width
     var height: CGFloat = 236
 
-    var pageControl: UIPageControl! = UIPageControl(frame: CGRect(x: 0, y: 204, width: 38, height: 136))
-    var scrollView: UIScrollView! = UIScrollView(frame: CGRect(x: 0, y: 30, width: UIScreen.main.bounds.width, height: 236))
+    var pageControl: UIPageControl! = UIPageControl(frame: CGRect(x: 0, y: 200, width: 40, height: 150))
+    var scrollView: UIScrollView! = UIScrollView(frame: CGRect(x: 0, y: 30, width: UIScreen.main.bounds.width, height: 300))
     
     let blurEffectView: UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
     
@@ -66,10 +66,9 @@ class ProfileViewController: UIViewController {
         pageControl.numberOfPages = 2
         view.addSubview(pageControl)
         
-        // Page 1
-        if let profilePictureURL = user?.profileUrl {
+        if let profileURL = user?.profileUrl {
             let profileImageView = UIImageView(frame: CGRect(x: 0, y: 100, width: 60, height: 60))
-            profileImageView.setImageWith(profilePictureURL)
+            profileImageView.setImageWith(profileURL)
             profileImageView.layer.cornerRadius = 5
             profileImageView.clipsToBounds = true
             profileImageView.center.x = view.center.x
@@ -92,7 +91,7 @@ class ProfileViewController: UIViewController {
         }
         
         if let sn = user?.screename {
-            let screennameLabel = UILabel(frame: CGRect(x: 0, y: 196, width: width - 16, height: 16))
+            let screennameLabel = UILabel(frame: CGRect(x: 0, y: 200, width: width - 16, height: 16))
             let screennameAttributes = [
                 NSForegroundColorAttributeName: UIColor.white,
                 NSFontAttributeName: UIFont.systemFont(ofSize: 13.0)
@@ -106,7 +105,6 @@ class ProfileViewController: UIViewController {
             scrollView.addSubview(screennameLabel)
         }
         
-        // Page 2
         let locationLabel = UILabel(frame: CGRect(x: width + 8, y: 140, width: width - 16, height: 16))
         if let location = user?.location {
             let locationAttributes = [
@@ -138,8 +136,6 @@ class ProfileViewController: UIViewController {
             scrollView.addSubview(taglineLabel)
         }
     }
-
-
 }
 
 extension ProfileViewController: UIScrollViewDelegate {
