@@ -1,8 +1,5 @@
 # Project 4 - Twitter Redux
 
-
-**Acceptance Criteria: The user can open up a map view with annotations that display the photos they've taken placed on the map where they were taken**
-
 Time spent: 10 hours spent in total
 
 ## User Stories
